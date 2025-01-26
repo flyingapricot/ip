@@ -50,24 +50,6 @@ public class Orange {
         System.out.println(HORIZONTAL_LINE);
     }
 
-//    public static void AddList() {
-//        String line;
-//        Scanner in = new Scanner(System.in);
-//        line = in.nextLine();
-//        while(!(line.equals("bye"))) {
-//            if(line.equals("list")) {
-//                ListTasks();
-//            }else {
-//                System.out.println(HORIZONTAL_LINE);
-//                System.out.println("\t" + "added: " + line);
-//                tasks.add(line);
-//                System.out.println(HORIZONTAL_LINE);
-//            }
-//            line = in.nextLine();
-//        }
-//        goodbye();
-//    }
-
     public static void main(String[] args) {
         greeting(); //Print out the greeting
         String line;
