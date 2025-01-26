@@ -58,8 +58,6 @@ public class Orange {
         while(!(line.equals("bye"))) {
             if(line.equals("list")) {
                 ListTasks();
-                line = in.nextLine();
-                continue;
             }else if(line.contains("unmark")) {
                 //Mark the task as not completed
                 String taskNumber = line.substring(7);
@@ -68,7 +66,6 @@ public class Orange {
                 System.out.println("\t" + "OK, I've marked this task as not done yet:");
                 System.out.println("\t\t" + tasks.get(Integer.parseInt(taskNumber)-1).GetTaskWithCompletion());
                 System.out.println(HORIZONTAL_LINE);
-                line = in.nextLine();
             }else if(line.contains("mark")) {
                 //Mark the task as completed
                 String taskNumber = line.substring(5);
@@ -77,11 +74,11 @@ public class Orange {
                 System.out.println("\t" + "Nice! I've marked this task as done:");
                 System.out.println("\t\t" + tasks.get(Integer.parseInt(taskNumber)-1).GetTaskWithCompletion());
                 System.out.println(HORIZONTAL_LINE);
-                line = in.nextLine();
             }else {
+                //Add the task to the tasks list
                 AddTask(line);
-                line = in.nextLine();
             }
+            line = in.nextLine();
         }
         goodbye();
     }
