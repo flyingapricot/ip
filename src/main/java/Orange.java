@@ -1,7 +1,7 @@
 public class Orange {
     private static final String HORIZONTAL_LINE = "-".repeat(50);
     private static final String CHATBOT_NAME = "ORANGE";
-    public void greeting() {
+    public static void greeting() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm " + CHATBOT_NAME);
         System.out.println("What can I do for you?");
