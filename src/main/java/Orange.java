@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
 
 public class Orange {
@@ -49,6 +48,7 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
+  //Adding Task
   public static void AddTask(String task) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\t" + "added: " + task);
@@ -57,6 +57,7 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
+  //Unmarking Task
   public static void Unmark(String taskNumber) {
     // Mark the task as not completed
     tasks.get(Integer.parseInt(taskNumber) - 1).setIsDone(false);
@@ -68,6 +69,7 @@ public class Orange {
 
   }
 
+  //Marking Task As Complete
   public static void Mark(String taskNumber) {
     // Mark the task as completed
     tasks.get(Integer.parseInt(taskNumber) - 1).setIsDone(true);
@@ -122,11 +124,11 @@ public class Orange {
     line = in.nextLine(); //Read the input
 
     //Split the input by space delimeter
-    //check if there is any command word used (mark,unmark....)
     String[] userInput = line.split(" ");
 
+    //check if there is any command word used (mark,unmark....)
     String commandWord = userInput[0];
-    if(!commands.contains(commandWord)) commandWord = "";
+    if(!commands.contains(commandWord)) commandWord = ""; //This will load the default case
 
     while(!(line.equals("bye"))) {
       switch(commandWord) {

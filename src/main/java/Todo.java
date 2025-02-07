@@ -1,4 +1,4 @@
-public class Todo extends Task{
+public class Todo extends Task {
 
   public Todo(String description, boolean isDone) {
     super(description, isDone);
@@ -12,7 +12,7 @@ public class Todo extends Task{
   public void printTaskWithCompletion() {
     if (this.isDone) {
       System.out.print("[T][X] " + this.description);
-    } else if (!this.isDone) {
+    } else {
       System.out.print("[T][ ] " + this.description);
     }
   }
@@ -21,10 +21,8 @@ public class Todo extends Task{
   public String GetTaskWithCompletion() {
     if (this.isDone) {
       return "[T][X] " + this.description;
-    } else if (!this.isDone) {
+    } else {
       return "[T][ ] " + this.description;
     }
-    return "";
   }
-
 }

@@ -31,7 +31,7 @@ public class Task {
   public void printTaskWithCompletion() {
     if (this.isDone) {
       System.out.print("[X] " + this.description);
-    } else if (!this.isDone) {
+    } else {
       System.out.print("[ ] " + this.description);
     }
   }
@@ -39,9 +39,8 @@ public class Task {
   public String GetTaskWithCompletion() {
     if (this.isDone) {
       return "[X] " + this.description;
-    } else if (!this.isDone) {
+    } else {
       return "[ ] " + this.description;
     }
-    return "";
   }
 }
