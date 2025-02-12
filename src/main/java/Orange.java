@@ -117,18 +117,12 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws OrangeException {
     greeting(); // Print out the greeting
-    String line;
+    String line = "";
     Scanner in = new Scanner(System.in);
-    line = in.nextLine(); //Read the input
-
-    //Split the input by space delimeter
-    String[] userInput = line.split(" ");
-
-    //check if there is any command word used (mark,unmark....)
-    String commandWord = userInput[0];
-    if(!commands.contains(commandWord)) commandWord = ""; //This will load the default case
+    String commandWord = "";
+    String[] userInput;
 
     while(!(line.equals("bye"))) {
       switch(commandWord) {
@@ -146,34 +140,69 @@ public class Orange {
           Mark(taskNumberMarked);
           break;
         case "todo":
-          String TodoTask = line.substring(5);
-          Todo(TodoTask);
+          String TodoTask = "";
+          try{
+            TodoTask = (line.substring(5)).trim(); //Remove any trailing spaces
+          }
+          catch (StringIndexOutOfBoundsException s) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("\t" + "Description of a todo cannot be empty! Try again.");
+            System.out.println(HORIZONTAL_LINE);
+          }
+          if(!TodoTask.isEmpty()) Todo(TodoTask);
           break;
         case "deadline":
           //Scan for /by
-          int position = line.indexOf("/by");
-          String deadlineTask = line.substring(8,position);
-          String givenDeadline = line.substring(position+4);
-          Deadline(deadlineTask,givenDeadline);
+          int position;
+          String deadlineTask = "";
+          String givenDeadline = "";
+          try {
+            position = line.indexOf("/by");
+            if(position == -1) {
+              throw new OrangeException(2);
+            }
+            deadlineTask = line.substring(8,position);
+            givenDeadline = line.substring(position+4);
+          } catch(OrangeException o) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("\t" + "Format of calling a deadline is wrong. Try this: /by [Date And Time task is due] [Task]");
+            System.out.println(HORIZONTAL_LINE);
+          }
+          if(!deadlineTask.isEmpty() && !givenDeadline.isEmpty()) Deadline(deadlineTask,givenDeadline);
           break;
         case "event":
           //Scan for /by
           int from = line.indexOf("/from");
-          String eventTask = line.substring(0,from);
+          String eventTask = "";
+          try{
+            eventTask = line.substring(0,from);
+          } catch(StringIndexOutOfBoundsException s) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("\t" + "Description of an event cannot be empty! Try again.");
+            System.out.println(HORIZONTAL_LINE);
+          }
           int to = line.indexOf("/to");
           String fromDate = line.substring(from+5,to);
           String toDate = line.substring(to+3);
           String givenDeadline2 = line.substring(0,from);
-          Event(eventTask,fromDate,toDate);
+          if(!eventTask.isEmpty()) Event(eventTask,fromDate,toDate);
           break;
         default:
-          //Add Tasks
-          AddTask(line);
       }
       line = in.nextLine();
       userInput = line.split(" ");
       commandWord = userInput[0];
       if(!commands.contains(commandWord)) commandWord = "";
+
+      //Try Catch Block to catch no keyword used
+      try{
+        if(!commands.contains(commandWord)) throw new OrangeException(1);
+      }catch(OrangeException o) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("\t" + o.getMessage());
+        System.out.println(HORIZONTAL_LINE);
+      }
+
     }
     goodbye();
   }
