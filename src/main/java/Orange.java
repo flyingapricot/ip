@@ -172,22 +172,36 @@ public class Orange {
           break;
         case "event":
           //Scan for /by
-          int from = line.indexOf("/from");
-          String eventTask = "";
+          int from = -1;
           try{
+            from = line.indexOf("/from");
+          }catch(StringIndexOutOfBoundsException s) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("\t" + "Incorrect Format for event. Use this format: event [Event] /from [Start] /to [End]");
+            System.out.println(HORIZONTAL_LINE);
+          }
+          String eventTask = "";
+          try {
             eventTask = line.substring(0,from);
           } catch(StringIndexOutOfBoundsException s) {
             System.out.println(HORIZONTAL_LINE);
-            System.out.println("\t" + "Description of an event cannot be empty! Try again.");
+            System.out.println("\t" + "Incorrect Format for event. Use this format: event [Event] /from [Start] /to [End]");
             System.out.println(HORIZONTAL_LINE);
           }
-          int to = line.indexOf("/to");
-          String fromDate = line.substring(from+5,to);
-          String toDate = line.substring(to+3);
-          String givenDeadline2 = line.substring(0,from);
-          if(!eventTask.isEmpty()) Event(eventTask,fromDate,toDate);
+          int to = -1;
+          try {
+            to = line.indexOf("/to");
+          } catch(StringIndexOutOfBoundsException s) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("\t" + "Incorrect Format for event. Use this format: event [Event] /from [Start] /to [End]");
+            System.out.println(HORIZONTAL_LINE);
+          }
+          if (from != -1 && to != -1 && !eventTask.isEmpty()) {
+            String fromDate = line.substring(from + 5, to);
+            String toDate = line.substring(to + 3);
+            Event(eventTask, fromDate, toDate);
+          }
           break;
-        default:
       }
       line = in.nextLine();
       userInput = line.split(" ");
