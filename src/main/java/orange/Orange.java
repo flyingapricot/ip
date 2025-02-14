@@ -1,7 +1,12 @@
+package orange;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
+import orange.task.Deadline;
+import orange.task.Events;
+import orange.task.Task;
+import orange.task.Todo;
 
 public class Orange {
   private static final String HORIZONTAL_LINE = "\t" + "-".repeat(50);
@@ -48,7 +53,7 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
-  //Adding Task
+  //Adding orange.task.Task
   public static void AddTask(String task) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\t" + "added: " + task);
@@ -57,7 +62,7 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
-  //Unmarking Task
+  //Unmarking orange.task.Task
   public static void Unmark(String taskNumber) {
     // Mark the task as not completed
     tasks.get(Integer.parseInt(taskNumber) - 1).setIsDone(false);
@@ -69,7 +74,7 @@ public class Orange {
 
   }
 
-  //Marking Task As Complete
+  //Marking orange.task.Task As Complete
   public static void Mark(String taskNumber) {
     // Mark the task as completed
     tasks.get(Integer.parseInt(taskNumber) - 1).setIsDone(true);
@@ -81,7 +86,7 @@ public class Orange {
 
   }
 
-  //Adding Todo Task
+  //Adding orange.task.Todo orange.task.Task
   public static void Todo(String task) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\tGot it. I've added this task:");
@@ -93,7 +98,7 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
-  //Adding Deadline Task
+  //Adding orange.task.Deadline orange.task.Task
   public static void Deadline(String task,String dateAndTime) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\tGot it. I've added this task:");
@@ -105,7 +110,7 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
   }
 
-  //Adding Event Task
+  //Adding Event orange.task.Task
   public static void Event(String task,String fromDateAndTime,String toDateAndTime) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\tGot it. I've added this task:");
@@ -165,7 +170,7 @@ public class Orange {
             givenDeadline = line.substring(position+4);
           } catch(OrangeException o) {
             System.out.println(HORIZONTAL_LINE);
-            System.out.println("\t" + "Format of calling a deadline is wrong. Try this: /by [Date And Time task is due] [Task]");
+            System.out.println("\t" + "Format of calling a deadline is wrong. Try this: /by [Date And Time task is due] [orange.task.Task]");
             System.out.println(HORIZONTAL_LINE);
           }
           if(!deadlineTask.isEmpty() && !givenDeadline.isEmpty()) Deadline(deadlineTask,givenDeadline);
