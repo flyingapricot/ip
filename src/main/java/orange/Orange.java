@@ -10,7 +10,7 @@ import orange.task.Todo;
 
 public class Orange {
   private static final String HORIZONTAL_LINE = "\t" + "-".repeat(50);
-  private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline"));
+  private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete"));
 
   private static final String CHATBOT_NAME = "ORANGE";
   private static final ArrayList<Task> tasks =
@@ -129,7 +129,7 @@ public class Orange {
     String commandWord = "";
     String[] userInput;
 
-    while(!(line.equals("bye"))) {
+    while (!(line.equals("bye"))) {
       switch(commandWord) {
         case "list":
           ListTasks();
@@ -207,6 +207,15 @@ public class Orange {
             Event(eventTask, fromDate, toDate);
           }
           break;
+        case "delete":
+          int numberToCheck = Integer.parseInt(line.substring(7));
+          System.out.println(HORIZONTAL_LINE);
+          System.out.println("Noted. I've removed this task:");
+          System.out.println("\t" + tasks.get(numberToCheck-1).GetTaskWithCompletion());
+          tasks.remove(numberToCheck-1);
+          System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+          break;
+
       }
       line = in.nextLine();
       userInput = line.split(" ");
