@@ -2,15 +2,22 @@ package orange;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import orange.task.Deadline;
 import orange.task.Events;
 import orange.task.Task;
 import orange.task.Todo;
+import java.io.IOException;
+import java.nio.file.*;
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+
 
 public class Orange {
   private static final String HORIZONTAL_LINE = "\t" + "-".repeat(50);
   private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete"));
+  private static final String TASKFILE = "./saved.csv";
 
   private static final String CHATBOT_NAME = "ORANGE";
   private static final ArrayList<Task> tasks =
@@ -27,6 +34,54 @@ public class Orange {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\t" + "Bye. Hope to see you again soon!");
     System.out.println(HORIZONTAL_LINE);
+  }
+
+  public static void loadTask() {
+    Path path = Paths.get(TASKFILE);
+
+    // Check if the file exists
+    if (Files.exists(path)) {
+      System.out.println("File exists, reading task file: " + TASKFILE);
+    } else {
+      // File doesn't exist, so create it
+      try {
+        Files.createFile(path);
+        System.out.println("Task File created at: " + TASKFILE);
+      } catch (IOException e) {
+        System.out.println("Error creating Task file: " + e.getMessage());
+      }
+    }
+
+    //Read the task file and load any tasks
+    //Task type,status,task name,from date,to date
+    Path taskPath = Paths.get(TASKFILE);
+    try {
+      List<String> lines = Files.readAllLines(taskPath);
+      for (String line : lines) {
+        String[] values = line.split(",");
+        switch(values[0]) {
+          case "T":
+            int status = Integer.parseInt(values[1]);
+            Boolean taskStatus = status == 1;
+            Todo(values[2],taskStatus);
+            break;
+          case "D":
+            int deadlines = Integer.parseInt(values[1]);
+            Boolean deadlineStatus = deadlines == 1;
+            Deadline(values[2],values[4],deadlineStatus);
+            break;
+          case "E":
+            int events = Integer.parseInt(values[1]);
+            Boolean eventsStatus = events == 1;
+            Event(values[2],values[3],values[4],eventsStatus);
+            break;
+        }
+      }
+
+    }catch (IOException e) {
+        System.out.println("Error reading the file: " + e.getMessage());
+    }
+
   }
 
   public static void echo() {
@@ -87,42 +142,82 @@ public class Orange {
   }
 
   //Adding orange.task.Todo orange.task.Task
-  public static void Todo(String task) {
+  public static void Todo(String task,Boolean status) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\tGot it. I've added this task:");
-    Task t = new Todo(task, false);
+    Task t = new Todo(task, status);
     System.out.print("\t\t");
     System.out.println(t.GetTaskWithCompletion());
     tasks.add(t);
     System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
     System.out.println(HORIZONTAL_LINE);
+
+    //Save the task inside tasks.csv
+    try {
+      Path path = Paths.get(TASKFILE);
+      // Write data rows
+      //Task type,status,task name,from date,to date
+      String finalTask = "T," + "0," + task +",-,-\n";
+      Files.write(path, Arrays.asList(finalTask), StandardOpenOption.APPEND);
+      System.out.println("Data written to CSV successfully.");
+    } catch (IOException e) {
+      System.out.println("Error writing to CSV file: " + e.getMessage());
+    }
+
   }
 
   //Adding orange.task.Deadline orange.task.Task
-  public static void Deadline(String task,String dateAndTime) {
+  public static void Deadline(String task,String dateAndTime,Boolean deadlineStatus) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\tGot it. I've added this task:");
-    Task t = new Deadline(task, false,dateAndTime);
+    Task t = new Deadline(task, deadlineStatus,dateAndTime);
     System.out.print("\t\t");
     System.out.println(t.GetTaskWithCompletion());
     tasks.add(t);
     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     System.out.println(HORIZONTAL_LINE);
+
+    //Save the task inside tasks.csv
+    try {
+      Path path = Paths.get(TASKFILE);
+      // Write data rows
+      //Task type,status,task name,from date,to date
+      String finalDeadline = "D,0," + task + ",-," + dateAndTime + "\n";
+      Files.write(path, Arrays.asList(finalDeadline), StandardOpenOption.APPEND);
+      System.out.println("Data written to CSV successfully.");
+    } catch (IOException e) {
+      System.out.println("Error writing to CSV file: " + e.getMessage());
+    }
+
   }
 
   //Adding Event orange.task.Task
-  public static void Event(String task,String fromDateAndTime,String toDateAndTime) {
+  public static void Event(String task,String fromDateAndTime,String toDateAndTime,Boolean EventStatus) {
     System.out.println(HORIZONTAL_LINE);
     System.out.println("\tGot it. I've added this task:");
-    Task t = new Events(task, false,fromDateAndTime,toDateAndTime);
+    Task t = new Events(task, EventStatus,fromDateAndTime,toDateAndTime);
     System.out.print("\t\t");
     System.out.println(t.GetTaskWithCompletion());
     tasks.add(t);
     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     System.out.println(HORIZONTAL_LINE);
+
+    //Save the task inside tasks.csv
+    try {
+      Path path = Paths.get(TASKFILE);
+      // Write data rows
+      //Task type,status,task name,from date,to date
+      String finalEvent = "D,0," + task + "," + fromDateAndTime + "," + toDateAndTime + "\n";
+      Files.write(path, Arrays.asList(finalEvent), StandardOpenOption.APPEND);
+      System.out.println("Data written to CSV successfully.");
+    } catch (IOException e) {
+      System.out.println("Error writing to CSV file: " + e.getMessage());
+    }
+
   }
 
   public static void main(String[] args) throws OrangeException {
+    loadTask();
     greeting(); // Print out the greeting
     String line = "";
     Scanner in = new Scanner(System.in);
@@ -154,7 +249,7 @@ public class Orange {
             System.out.println("\t" + "Description of a todo cannot be empty! Try again.");
             System.out.println(HORIZONTAL_LINE);
           }
-          if(!TodoTask.isEmpty()) Todo(TodoTask);
+          if(!TodoTask.isEmpty()) Todo(TodoTask,false);
           break;
         case "deadline":
           //Scan for /by
@@ -173,7 +268,7 @@ public class Orange {
             System.out.println("\t" + "Format of calling a deadline is wrong. Try this: /by [Date And Time task is due] [orange.task.Task]");
             System.out.println(HORIZONTAL_LINE);
           }
-          if(!deadlineTask.isEmpty() && !givenDeadline.isEmpty()) Deadline(deadlineTask,givenDeadline);
+          if(!deadlineTask.isEmpty() && !givenDeadline.isEmpty()) Deadline(deadlineTask,givenDeadline,false);
           break;
         case "event":
           //Scan for /by
@@ -204,7 +299,7 @@ public class Orange {
           if (from != -1 && to != -1 && !eventTask.isEmpty()) {
             String fromDate = line.substring(from + 5, to);
             String toDate = line.substring(to + 3);
-            Event(eventTask, fromDate, toDate);
+            Event(eventTask, fromDate, toDate,false);
           }
           break;
         case "delete":
