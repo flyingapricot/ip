@@ -219,8 +219,6 @@ Here is a quick reference for all commands:
 
 
 ---
-
----
 ## Saving and Loading
 - Orange automatically **saves** tasks to a file (`saved.csv`) after every command that modifies tasks.
 - Tasks are **loaded** from `saved.csv` when the chatbot starts.
