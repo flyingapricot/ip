@@ -1,3 +1,14 @@
+/**
+ * Handles the execution of the mark command.
+ * This command marks a specified task as completed.
+ *
+ * @see Command
+ * @see Task
+ * @see TaskList
+ * @see Parser
+ * @see Storage
+ * @see Ui
+ */
 package orange.command;
 
 import orange.Ui.Ui;
@@ -8,24 +19,27 @@ import orange.task.Task;
 import orange.task.TaskList;
 
 import static orange.exception.ExceptionType.INVALID_TASKNUMBER;
-import static orange.parser.Parser.parseMark;
 
-public class MarkCommand extends Command{
-
-
+public class MarkCommand extends Command {
+    /**
+     * Executes the mark command.
+     * <p>
+     * Parses the user input to extract the task number, updates the completion status of the task,
+     * updates the UI, and saves the updated task list to storage.
+     * </p>
+     *
+     * @throws OrangeException If the task number is invalid.
+     */
     @Override
     public void executeCommand() throws OrangeException {
-        //For a given task number mark it as completed
         int taskNumber = Parser.parseMark();
-
         try {
-            TaskList.getInstance().updateCompletionStatus(taskNumber,true);
+            TaskList.getInstance().updateCompletionStatus(taskNumber, true);
         } catch (IndexOutOfBoundsException i) {
-            //Invalid task number
             throw new OrangeException(INVALID_TASKNUMBER);
         }
+
         Ui.showMarkTask(TaskList.getInstance().getTasks().get(taskNumber));
-        //Update the save file
         Storage.updateTaskFile();
     }
 }

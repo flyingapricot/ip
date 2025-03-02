@@ -1,3 +1,10 @@
+/**
+ * Parses user input and extracts command information for processing.
+ * This class handles parsing different command types and extracting relevant data.
+ *
+ * @see OrangeException
+ * @see Ui
+ */
 package orange.parser;
 
 import orange.exception.ExceptionType;
@@ -11,216 +18,190 @@ import java.util.HashSet;
 import static orange.exception.ExceptionType.*;
 
 public class Parser {
-    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete","find"));
+    /**
+     * A set of valid command keywords.
+     */
+    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark", "unmark", "list", "todo", "event", "deadline", "delete", "find"));
+
+    /**
+     * Stores the user input command line.
+     */
     protected static String line;
 
+    /**
+     * Constructs a Parser instance with the given user input.
+     *
+     * @param line The user input command line.
+     */
     public Parser(String line) {
         Parser.line = line;
     }
 
+    /**
+     * Updates the stored command line with new user input.
+     *
+     * @param line The new user input command line.
+     */
     public void updateLine(String line) {
         Parser.line = line;
     }
 
+    /**
+     * Splits the user input into individual components.
+     *
+     * @return An array of strings representing the user input components.
+     */
     private String[] getUserInput() {
         return line.split(" ");
     }
 
+    /**
+     * Extracts and validates the command word from the user input.
+     *
+     * @return The extracted command word if valid, otherwise an empty string.
+     */
     public String scanForCommandWord() {
-        //Any command given to the chatbot must start with one of the command keywords defined in the commands hashset
         String commandWord = getUserInput()[0];
-
-        //Try Catch Block to catch no keyword used
-        try{
-            if(!commands.contains(commandWord)) throw new OrangeException(ExceptionType.UNKNOWN_COMMAND);
-        }catch(OrangeException o) {
+        try {
+            if (!commands.contains(commandWord)) throw new OrangeException(ExceptionType.UNKNOWN_COMMAND);
+        } catch (OrangeException o) {
             Ui.showError(o.getCustomMessage());
             return "";
         }
-
-        return commandWord; //Valid command word detected
+        return commandWord;
     }
 
-    //Parse a todo task
-    public static String parseTodo() throws OrangeException{
-        String TodoTask = "";
+    /**
+     * Parses a Todo task command and extracts the task description.
+     *
+     * @return The extracted todo task description.
+     * @throws OrangeException If the todo task description is missing.
+     */
+    public static String parseTodo() throws OrangeException {
         try {
-            TodoTask = (line.substring(5)).trim(); //Remove any trailing spaces
-            if(TodoTask.isEmpty()) {
+            String TodoTask = (line.substring(5)).trim();
+            if (TodoTask.isEmpty()) {
                 throw new OrangeException(MISSING_TODO_DESCRIPTION);
             }
+            return TodoTask;
         } catch (StringIndexOutOfBoundsException s) {
             throw new OrangeException(MISSING_TODO_DESCRIPTION);
         }
-
-        return TodoTask;
     }
 
-    public static ArrayList<String> parseDeadline() throws OrangeException{
+    /**
+     * Parses a Deadline task command and extracts the task description and due date.
+     *
+     * @return A list containing the task description and due date.
+     * @throws OrangeException If the deadline format is incorrect or missing.
+     */
+    public static ArrayList<String> parseDeadline() throws OrangeException {
         int position = line.indexOf("/by");
-        if(position == -1) throw new OrangeException(MISSING_DEADLINE_BYWORD);
+        if (position == -1) throw new OrangeException(MISSING_DEADLINE_BYWORD);
 
-        int oldPosition = position;
-        position = line.indexOf("/by",position+1);
-        if(position != -1) throw new OrangeException(EXTRA_BY_IN_DEADLINE);
-        position = oldPosition;
-
-        String deadlineTask = "";
-        String doTaskBy = "";
-
+        String deadlineTask = "", doTaskBy = "";
         try {
             deadlineTask = line.substring(8, position).trim();
             if (deadlineTask.isEmpty()) {
-                throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);  // Throw exception if the task is empty after trimming
+                throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
             }
-        } catch(IndexOutOfBoundsException i) {
-            throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
-        }
-
-        try {
-            doTaskBy = line.substring(position+4).trim();
+            doTaskBy = line.substring(position + 4).trim();
             if (doTaskBy.isEmpty()) {
-                throw new OrangeException(MISSING_DEADLINE_DOBY);  // Throw exception if the task is empty after trimming
+                throw new OrangeException(MISSING_DEADLINE_DOBY);
             }
-        } catch(IndexOutOfBoundsException i) {
+        } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DOBY);
         }
-
         return new ArrayList<>(Arrays.asList(deadlineTask, doTaskBy));
     }
 
-    public static ArrayList<String> parseEvent() throws OrangeException{
-
+    /**
+     * Parses an Event task command and extracts the task description, start time, and end time.
+     *
+     * @return A list containing the task description, start time, and end time.
+     * @throws OrangeException If the event format is incorrect or missing.
+     */
+    public static ArrayList<String> parseEvent() throws OrangeException {
         int fromPosition = line.indexOf("/from");
-        if(fromPosition == -1) throw new OrangeException(MISSING_EVENT_FROMWORD);
-
-        int oldFromPosition = fromPosition;
-        fromPosition = line.indexOf("/by",fromPosition+1);
-        if(fromPosition != -1) throw new OrangeException(EXTRA_FROM_IN_EVENT);
-        fromPosition = oldFromPosition;
-
+        if (fromPosition == -1) throw new OrangeException(MISSING_EVENT_FROMWORD);
 
         int byPosition = line.indexOf("/to");
-        if(byPosition == -1) throw new OrangeException(MISSING_EVENT_TOWORD);
+        if (byPosition == -1) throw new OrangeException(MISSING_EVENT_TOWORD);
 
-        int oldByPosition = byPosition;
-        byPosition = line.indexOf("/by",byPosition+1);
-        if(byPosition != -1) throw new OrangeException(EXTRA_TO_IN_EVENT);
-        byPosition = oldByPosition;
-
-
-        String eventTask = "";
-        String doEventBy = "";
-        String startEventBy = "";
-
-
-
+        String eventTask = "", startEventBy = "", doEventBy = "";
         try {
             eventTask = line.substring(5, fromPosition).trim();
-            if (eventTask.isEmpty()) {
-                throw new OrangeException(MISSING_EVENT_DESCRIPTION);  // Throw exception if the task is empty after trimming
+            startEventBy = line.substring(fromPosition + 5, byPosition).trim();
+            doEventBy = line.substring(byPosition + 3).trim();
+            if (eventTask.isEmpty() || startEventBy.isEmpty() || doEventBy.isEmpty()) {
+                throw new OrangeException(MISSING_EVENT_DESCRIPTION);
             }
-        } catch(IndexOutOfBoundsException i) {
+        } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_EVENT_DESCRIPTION);
         }
-
-        try {
-            startEventBy = line.substring(fromPosition+5,byPosition).trim();
-            if (startEventBy.isEmpty()) {
-                throw new OrangeException(MISSING_EVENT_STARTON);  // Throw exception if the task is empty after trimming
-            }
-        } catch(IndexOutOfBoundsException i) {
-            throw new OrangeException(MISSING_EVENT_STARTON);
-        }
-
-        try {
-            doEventBy = line.substring(byPosition+3).trim();
-            if (doEventBy.isEmpty()) {
-                throw new OrangeException(MISSING_EVENT_DOBY);  // Throw exception if the task is empty after trimming
-            }
-        } catch(IndexOutOfBoundsException i) {
-            throw new OrangeException(MISSING_EVENT_DOBY);
-        }
-
-        return new ArrayList<>(Arrays.asList(eventTask, startEventBy,doEventBy));
+        return new ArrayList<>(Arrays.asList(eventTask, startEventBy, doEventBy));
     }
 
+    /**
+     * Parses and extracts the task number for marking as done.
+     *
+     * @return The task number to mark.
+     * @throws OrangeException If the task number is missing or invalid.
+     */
     public static int parseMark() throws OrangeException {
-        String taskToMarkString = "";
-        int taskToMark = -1;
-        try {
-            taskToMarkString = line.substring(4).trim(); //Remove any trailing spaces
-            if(taskToMarkString.isEmpty()) {
-                throw new OrangeException(INVALID_TASKNUMBER);
-            }
-        } catch (StringIndexOutOfBoundsException s) {
-            throw new OrangeException(INVALID_TASKNUMBER);
-        }
-
-        try {
-            taskToMark = Integer.parseInt(taskToMarkString);
-        } catch (NumberFormatException n) {
-            throw new OrangeException(INVALID_TASKNUMBER);
-        }
-        return taskToMark - 1;
+        return parseIntegerCommand(4);
     }
 
+    /**
+     * Parses and extracts the task number for unmarking as done.
+     *
+     * @return The task number to unmark.
+     * @throws OrangeException If the task number is missing or invalid.
+     */
     public static int parseUnMark() throws OrangeException {
-        String taskToUnMarkString = "";
-        int taskToUnMark = -1;
-        try {
-            taskToUnMarkString = line.substring(6).trim(); //Remove any trailing spaces
-            if(taskToUnMarkString.isEmpty()) {
-                throw new OrangeException(INVALID_TASKNUMBER);
-            }
-        } catch (StringIndexOutOfBoundsException s) {
-            throw new OrangeException(INVALID_TASKNUMBER);
-        }
-
-        try {
-            taskToUnMark = Integer.parseInt(taskToUnMarkString);
-        } catch (NumberFormatException n) {
-            throw new OrangeException(INVALID_TASKNUMBER);
-        }
-
-        return taskToUnMark - 1;
+        return parseIntegerCommand(6);
     }
 
+    /**
+     * Parses and extracts the task number for deletion.
+     *
+     * @return The task number to delete.
+     * @throws OrangeException If the task number is missing or invalid.
+     */
     public static int parseDelete() throws OrangeException {
-        String taskToDeleteString = "";
-        int taskToDelete = -1;
-        try {
-            taskToDeleteString = line.substring(6).trim(); //Remove any trailing spaces
-            if(taskToDeleteString.isEmpty()) {
-                throw new OrangeException(INVALID_TASKNUMBER);
-            }
-        } catch (StringIndexOutOfBoundsException s) {
-            throw new OrangeException(INVALID_TASKNUMBER);
-        }
-
-        try {
-            taskToDelete = Integer.parseInt(taskToDeleteString);
-        } catch (NumberFormatException n) {
-            throw new OrangeException(INVALID_TASKNUMBER);
-        }
-
-        return taskToDelete - 1;
+        return parseIntegerCommand(6);
     }
 
+    /**
+     * Parses and extracts the search keyword for finding tasks.
+     *
+     * @return The search keyword.
+     * @throws OrangeException If the keyword is missing.
+     */
     public static String parseFind() throws OrangeException {
-        String taskToFind = "";
-        try {
-            taskToFind = line.substring(4).trim(); //Remove any trailing spaces
-            if(taskToFind.isEmpty()) {
-                throw new OrangeException(INVALID_FINDTASK);
-            }
-        } catch (StringIndexOutOfBoundsException s) {
-            throw new OrangeException(INVALID_FINDTASK);
-        }
-
-        return taskToFind;
-
+        return parseStringCommand(4, INVALID_FINDTASK);
     }
 
+    /**
+     * Helper method to parse an integer command.
+     */
+    private static int parseIntegerCommand(int startIndex) throws OrangeException {
+        try {
+            String numberStr = line.substring(startIndex).trim();
+            return Integer.parseInt(numberStr) - 1;
+        } catch (Exception e) {
+            throw new OrangeException(INVALID_TASKNUMBER);
+        }
+    }
 
+    /**
+     * Helper method to parse a string command.
+     */
+    private static String parseStringCommand(int startIndex, ExceptionType exceptionType) throws OrangeException {
+        String result = line.substring(startIndex).trim();
+        if (result.isEmpty()) {
+            throw new OrangeException(exceptionType);
+        }
+        return result;
+    }
 }
