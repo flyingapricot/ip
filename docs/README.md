@@ -197,56 +197,26 @@ Bye. Hope to see you again soon!
 
 <p>Here is a quick reference for all commands:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Command</th>
-      <th>Format</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>list</b></td>
-      <td><code>list</code></td>
-    </tr>
-    <tr>
-      <td><b>todo</b></td>
-      <td><code>todo TASK_DESCRIPTION</code></td>
-    </tr>
-    <tr>
-      <td><b>deadline</b></td>
-      <td><code>deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:mm</code></td>
-    </tr>
-    <tr>
-      <td><b>event</b></td>
-      <td><code>event TASK_DESCRIPTION /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm</code></td>
-    </tr>
-    <tr>
-      <td><b>mark</b></td>
-      <td><code>mark TASK_NUMBER</code></td>
-    </tr>
-    <tr>
-      <td><b>unmark</b></td>
-      <td><code>unmark TASK_NUMBER</code></td>
-    </tr>
-    <tr>
-      <td><b>delete</b></td>
-      <td><code>delete TASK_NUMBER</code></td>
-    </tr>
-    <tr>
-      <td><b>find</b></td>
-      <td><code>find KEYWORD</code></td>
-    </tr>
-    <tr>
-      <td><b>checkondate</b></td>
-      <td><code>checkondate YYYY-MM-DD</code></td>
-    </tr>
-    <tr>
-      <td><b>bye</b></td>
-      <td><code>bye</code></td>
-    </tr>
-  </tbody>
-</table>
+---
+## Command Summary
+
+Here is a quick reference for all commands:
+
+| Command        | Format                                                               |
+|----------------|----------------------------------------------------------------------|
+| **list**       | `list`                                                               |
+| **todo**       | `todo TASK_DESCRIPTION`                                              |
+| **deadline**   | `deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:mm`                     |
+| **event**      | `event TASK_DESCRIPTION /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm` |
+| **mark**       | `mark TASK_NUMBER`                                                   |
+| **unmark**     | `unmark TASK_NUMBER`                                                 |
+| **delete**     | `delete TASK_NUMBER`                                                 |
+| **find**       | `find KEYWORD`                                                       |
+| **checkondate**| `checkondate YYYY-MM-DD`                                             |
+| **bye**        | `bye`                                                                |
+
+---
+
 
 ---
 
