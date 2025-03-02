@@ -1,5 +1,6 @@
 package orange.storage;
 
+import orange.exception.OrangeException;
 import orange.task.*;
 
 import java.io.FileWriter;
@@ -84,7 +85,7 @@ public class Storage {
     }
 
     //Load Tasks into taskmanager's arraylist
-    private void loadTasks() {
+    private void loadTasks() throws OrangeException {
         try {
             Path taskPath = Paths.get(TASKFILE);
             List<String> lines = Files.readAllLines(taskPath);
@@ -117,7 +118,7 @@ public class Storage {
     }
 
     //Constructor
-    public Storage() {
+    public Storage() throws OrangeException{
         //Initalises task file (creates it if it does not exist)
         try {
             initaliseTaskfile();

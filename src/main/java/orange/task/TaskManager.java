@@ -21,7 +21,7 @@ public class TaskManager {
         commandMap.put("deadline", new DeadlineCommand()::executeCommand);
         commandMap.put("event", new EventCommand()::executeCommand);
         commandMap.put("delete", new DeleteCommand()::executeCommand);
-
+        commandMap.put("checkondate", new CheckOnDateCommand()::executeCommand);
     }
 
     public CommandHandler getTask(String task) {
