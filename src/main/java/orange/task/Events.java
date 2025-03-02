@@ -1,21 +1,46 @@
 package orange.task;
 
+import orange.exception.OrangeException;
+import orange.parser.DateParser;
+
+import java.time.LocalDateTime;
+
 public class Events extends Task {
 
-  protected String startDateAndTime;
-  protected String endDateAndTime;
+  protected LocalDateTime startDateAndTime;
+  protected String newStartDateTimeString;
+  protected String originalStartDateTimeString;
+
+  protected LocalDateTime endDateAndTime;
+  protected String newEndDateTimeString;
+  protected String originalEndDateTimeString;
+
+
 
   public Events(
-      String description, boolean isDone, String startDateAndTime, String endDateAndTime) {
+      String description, boolean isDone, String originalStartDateTimeString, String originalEndDateTimeString) throws OrangeException {
     super(description, isDone);
-    this.startDateAndTime = startDateAndTime;
-    this.endDateAndTime = endDateAndTime;
+    this.originalStartDateTimeString = originalStartDateTimeString;
+    this.startDateAndTime = DateParser.getDateTimeObject(originalStartDateTimeString);
+    this.newStartDateTimeString = DateParser.getDifferentFormat(startDateAndTime);
+
+
+    this.originalEndDateTimeString = originalEndDateTimeString;
+    this.endDateAndTime = DateParser.getDateTimeObject(originalEndDateTimeString);
+    this.newEndDateTimeString = DateParser.getDifferentFormat(endDateAndTime);
+
   }
 
-  public Events(String description, String startDateAndTime, String endDateAndTime) {
+  public Events(String description, String originalStartDateTimeString, String originalEndDateTimeString) throws OrangeException {
     super(description);
-    this.startDateAndTime = startDateAndTime;
-    this.endDateAndTime = endDateAndTime;
+    this.originalStartDateTimeString = originalStartDateTimeString;
+    this.startDateAndTime = DateParser.getDateTimeObject(originalStartDateTimeString);
+    this.newStartDateTimeString = DateParser.getDifferentFormat(startDateAndTime);
+
+
+    this.originalEndDateTimeString = originalEndDateTimeString;
+    this.endDateAndTime = DateParser.getDateTimeObject(originalEndDateTimeString);
+    this.newEndDateTimeString = DateParser.getDifferentFormat(endDateAndTime);
   }
 
   @Override
@@ -34,27 +59,33 @@ public class Events extends Task {
           + this.description
           + " "
           + "(from: "
-          + startDateAndTime
+          + newStartDateTimeString
           + " to: "
-          + endDateAndTime
+          + newStartDateTimeString
           + ")";
     } else {
       return "[E][ ] "
           + this.description
           + " "
           + "(from: "
-          + startDateAndTime
+          + newStartDateTimeString
           + " to: "
-          + endDateAndTime
+          + newStartDateTimeString
           + ")";
     }
   }
 
   public String getStartDateAndTime() {
-    return startDateAndTime;
+    return originalStartDateTimeString;
   }
 
   public String getEndDateAndTime() {
+    return originalEndDateTimeString;
+  }
+
+  public LocalDateTime getEndLocalDateTime()
+  {
     return endDateAndTime;
   }
+
 }

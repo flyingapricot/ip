@@ -4,6 +4,8 @@ import orange.exception.ExceptionType;
 import orange.exception.OrangeException;
 import orange.Ui.Ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,7 +13,7 @@ import java.util.HashSet;
 import static orange.exception.ExceptionType.*;
 
 public class Parser {
-    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete"));
+    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete","checkondate"));
     protected static String line;
 
     public Parser(String line) {
@@ -85,6 +87,7 @@ public class Parser {
         } catch(IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DOBY);
         }
+
 
         return new ArrayList<>(Arrays.asList(deadlineTask, doTaskBy));
     }
@@ -205,6 +208,19 @@ public class Parser {
         }
 
         return taskToDelete - 1;
+    }
+
+    public static LocalDate parseCheckTasksOnDate() throws OrangeException {
+        String givenDate = "";
+        try {
+            givenDate = line.substring(11).trim();
+            if (givenDate.isEmpty()) {
+                throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);  // Throw exception if the task is empty after trimming
+            }
+        } catch(IndexOutOfBoundsException i) {
+            throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
+        }
+        return DateParser.getDateObject(givenDate);
     }
 
 }
