@@ -17,7 +17,8 @@ public enum ExceptionType {
     MISSING_EVENT_FROMWORD(12, "You have not used the /from in your event command. Try this: event [event task description] /from [Date And Time task starts on] /to [Date And Time task is due]"),
     EXTRA_BY_IN_DEADLINE(13, "You have used extra /by in the deadline command, this is not allowed. Try this: deadline [deadline task description] /by [Date And Time task is due]"),
     EXTRA_FROM_IN_EVENT(14, "You have used extra /from in the event command, this is not allowed. Try this: event [event task description] /from [Date And Time task starts on] /to [Date And Time task is due]"),
-    EXTRA_TO_IN_EVENT(14, "You have used extra /to in the event command, this is not allowed. Try this: event [event task description] /from [Date And Time task starts on] /to [Date And Time task is due]");
+    EXTRA_TO_IN_EVENT(15, "You have used extra /to in the event command, this is not allowed. Try this: event [event task description] /from [Date And Time task starts on] /to [Date And Time task is due]"),
+    INVALID_FINDTASK(16, "You have not entered a task. Try this: find [task]");
 
 
 
