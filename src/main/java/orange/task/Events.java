@@ -61,7 +61,7 @@ public class Events extends Task {
           + "(from: "
           + newStartDateTimeString
           + " to: "
-          + newStartDateTimeString
+          + newEndDateTimeString
           + ")";
     } else {
       return "[E][ ] "
@@ -70,7 +70,7 @@ public class Events extends Task {
           + "(from: "
           + newStartDateTimeString
           + " to: "
-          + newStartDateTimeString
+          + newEndDateTimeString
           + ")";
     }
   }

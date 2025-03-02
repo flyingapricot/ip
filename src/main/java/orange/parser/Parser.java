@@ -137,7 +137,7 @@ public class Parser {
         }
 
         try {
-            doEventBy = line.substring(byPosition+3).trim();
+            doEventBy = line.substring(byPosition+4).trim();
             if (doEventBy.isEmpty()) {
                 throw new OrangeException(MISSING_EVENT_DOBY);  // Throw exception if the task is empty after trimming
             }
@@ -145,7 +145,7 @@ public class Parser {
             throw new OrangeException(MISSING_EVENT_DOBY);
         }
 
-        return new ArrayList<>(Arrays.asList(eventTask, startEventBy,doEventBy));
+        return new ArrayList<>(Arrays.asList(eventTask,startEventBy,doEventBy));
     }
 
     public static int parseMark() throws OrangeException {
