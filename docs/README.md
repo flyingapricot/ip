@@ -193,18 +193,23 @@ Bye. Hope to see you again soon!
 
 ---
 ## Command Summary
-| Command | Format |
-|---------|--------|
-| **list** | `list` |
-| **todo** | `todo TASK_DESCRIPTION` |
-| **deadline** | `deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:mm` |
-| **event** | `event TASK_DESCRIPTION /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm` |
-| **mark** | `mark TASK_NUMBER` |
-| **unmark** | `unmark TASK_NUMBER` |
-| **delete** | `delete TASK_NUMBER` |
-| **find** | `find KEYWORD` |
+
+Here is a quick reference for all commands:
+
+| Command         | Format |
+|----------------|-----------------------------------------------|
+| **list**       | `list` |
+| **todo**       | `todo TASK_DESCRIPTION` |
+| **deadline**   | `deadline TASK_DESCRIPTION /by YYYY-MM-DD HH:mm` |
+| **event**      | `event TASK_DESCRIPTION /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm` |
+| **mark**       | `mark TASK_NUMBER` |
+| **unmark**     | `unmark TASK_NUMBER` |
+| **delete**     | `delete TASK_NUMBER` |
+| **find**       | `find KEYWORD` |
 | **checkondate** | `checkondate YYYY-MM-DD` |
-| **bye** | `bye` |
+| **bye**        | `bye` |
+
+---
 
 ---
 ## Saving and Loading
