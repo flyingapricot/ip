@@ -71,6 +71,16 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void showFoundTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("\t" + "Here are the matching tasks in your list:");
+        for(Task task: matchingTasks) {
+            System.out.println(
+                    "\t\t" + task.GetTaskWithCompletion());
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public static void showMatchingTasks(ArrayList<Task> matchingTasks, LocalDate checkDate) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the list of tasks that are due on " + DateParser.getStringFromLocalDate(checkDate));

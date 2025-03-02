@@ -18,11 +18,10 @@ public enum ExceptionType {
     EXTRA_BY_IN_DEADLINE(13, "You have used extra /by in the deadline command, this is not allowed. Try this: deadline [deadline task description] /by [Date And Time task is due]"),
     EXTRA_FROM_IN_EVENT(14, "You have used extra /from in the event command, this is not allowed. Try this: event [event task description] /from [Date And Time task starts on] /to [Date And Time task is due]"),
     EXTRA_TO_IN_EVENT(15, "You have used extra /to in the event command, this is not allowed. Try this: event [event task description] /from [Date And Time task starts on] /to [Date And Time task is due]"),
-    INCORRECT_DATE_AND_TIME_FORMAT(16, "Date And Time Format Provided Is Incorrect. Try in this format: yyyy-mm-dd HH:mm"),
-    INVALID_DATE_OR_TIME(17, "You have entered an invalid date or time, the format is correct. Try in this format: yyyy-mm-dd HH:mm"),
-    INVALID_DATE(18, "You have entered an invalid date. Try in this format: yyyy-mm-dd");
-
-
+    INVALID_FINDTASK(16, "You have not entered a task. Try this: find [task]"),
+    INCORRECT_DATE_AND_TIME_FORMAT(17, "Date And Time Format Provided Is Incorrect. Try in this format: yyyy-mm-dd HH:mm"),
+    INVALID_DATE_OR_TIME(18, "You have entered an invalid date or time, the format is correct. Try in this format: yyyy-mm-dd HH:mm"),
+    INVALID_DATE(19, "You have entered an invalid date. Try in this format: yyyy-mm-dd");
 
 
 

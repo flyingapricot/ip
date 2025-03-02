@@ -13,7 +13,7 @@ import java.util.HashSet;
 import static orange.exception.ExceptionType.*;
 
 public class Parser {
-    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete","checkondate"));
+    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete","checkondate","find"));
     protected static String line;
 
     public Parser(String line) {
@@ -208,6 +208,21 @@ public class Parser {
         }
 
         return taskToDelete - 1;
+    }
+
+    public static String parseFind() throws OrangeException {
+        String taskToFind = "";
+        try {
+            taskToFind = line.substring(4).trim(); //Remove any trailing spaces
+            if(taskToFind.isEmpty()) {
+                throw new OrangeException(INVALID_FINDTASK);
+            }
+        } catch (StringIndexOutOfBoundsException s) {
+            throw new OrangeException(INVALID_FINDTASK);
+        }
+
+        return taskToFind;
+
     }
 
     public static LocalDate parseCheckTasksOnDate() throws OrangeException {
