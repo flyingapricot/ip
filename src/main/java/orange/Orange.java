@@ -18,7 +18,11 @@ public class Orange {
   private TaskManager taskManager;
 
   public Orange() {
-    storage = new Storage();
+    try {
+      storage = new Storage();
+    } catch (OrangeException o) {
+      System.out.println(o.getCustomMessage());
+    }
     taskManager = new TaskManager();
   }
 
