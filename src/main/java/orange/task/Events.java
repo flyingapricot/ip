@@ -49,4 +49,12 @@ public class Events extends Task {
           + ")";
     }
   }
+
+  public String getStartDateAndTime() {
+    return startDateAndTime;
+  }
+
+  public String getEndDateAndTime() {
+    return endDateAndTime;
+  }
 }

@@ -31,4 +31,8 @@ public class Deadline extends Task {
       return "[D][ ] " + this.description + " " + "(by: " + dateAndTime + ")";
     }
   }
+
+  public String getDateAndTime() {
+    return dateAndTime;
+  }
 }
