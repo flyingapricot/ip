@@ -33,20 +33,28 @@ public class Events extends Task {
       return "[E][X] "
           + this.description
           + " "
-          + "(from:"
+          + "(from: "
           + startDateAndTime
-          + "to:"
+          + " to: "
           + endDateAndTime
           + ")";
     } else {
       return "[E][ ] "
           + this.description
           + " "
-          + "(from:"
+          + "(from: "
           + startDateAndTime
-          + "to:"
+          + " to: "
           + endDateAndTime
           + ")";
     }
+  }
+
+  public String getStartDateAndTime() {
+    return startDateAndTime;
+  }
+
+  public String getEndDateAndTime() {
+    return endDateAndTime;
   }
 }
