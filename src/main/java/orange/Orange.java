@@ -35,7 +35,11 @@ public class Orange {
    * Initializes the storage and task management components.
    */
   public Orange() {
-    storage = new Storage();
+    try {
+      storage = new Storage();
+    } catch (OrangeException o) {
+      System.out.println(o.getCustomMessage());
+    }
     taskManager = new TaskManager();
   }
 

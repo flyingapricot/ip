@@ -1,50 +1,30 @@
-/**
- * Represents a Deadline task with a specified due date and time.
- * A Deadline task is a type of task that includes a completion status
- * and a deadline by which it must be completed.
- *
- * @see Task
- */
 package orange.task;
+
+import orange.exception.OrangeException;
+import orange.parser.DateParser;
+
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
-  /**
-   * The date and time by which the task must be completed.
-   */
-  protected String dateAndTime;
+  protected LocalDateTime dateAndTime;
+  protected String newDateTimeString;
+  protected String originalDateTimeString;
 
-  /**
-   * Constructs a Deadline task with a description, completion status, and deadline.
-   *
-   * @param description The description of the task.
-   * @param isDone The completion status of the task.
-   * @param dateAndTime The deadline for the task.
-   */
-  public Deadline(String description, boolean isDone, String dateAndTime) {
+  public Deadline(String description, boolean isDone, String originalDateTimeString) throws OrangeException {
     super(description, isDone);
-    this.dateAndTime = dateAndTime;
+    this.originalDateTimeString = originalDateTimeString;
+    this.dateAndTime = DateParser.getDateTimeObject(originalDateTimeString);
+    this.newDateTimeString = DateParser.getDifferentFormat(dateAndTime);
   }
 
-  /**
-   * Constructs a Deadline task with a description and deadline.
-   * The task is initially not completed.
-   *
-   * @param description The description of the task.
-   * @param dateAndTime The deadline for the task.
-   */
-  public Deadline(String description, String dateAndTime) {
+  public Deadline(String description, String originalDateTimeString) throws OrangeException {
     super(description);
-    this.dateAndTime = dateAndTime;
+    this.originalDateTimeString = originalDateTimeString;
+    this.dateAndTime = DateParser.getDateTimeObject(originalDateTimeString);
+    this.newDateTimeString = DateParser.getDifferentFormat(dateAndTime);
   }
 
-  /**
-   * Prints the task with its completion status.
-   * <p>
-   * The task format includes a "D" to indicate a deadline task,
-   * followed by a completion indicator ([X] for done, [ ] for not done).
-   * </p>
-   */
   @Override
   public void printTaskWithCompletion() {
     if (this.isDone) {
@@ -54,30 +34,21 @@ public class Deadline extends Task {
     }
   }
 
-  /**
-   * Returns a string representation of the task, including its completion status and deadline.
-   * <p>
-   * The format is [D][X] for completed tasks and [D][ ] for incomplete tasks,
-   * followed by the task description and deadline.
-   * </p>
-   *
-   * @return A string representing the task with its completion status and deadline.
-   */
   @Override
   public String GetTaskWithCompletion() {
     if (this.isDone) {
-      return "[D][X] " + this.description + " (by: " + dateAndTime + ")";
+      return "[D][X] " + this.description + " (by: " + newDateTimeString + ")";
     } else {
-      return "[D][ ] " + this.description + " " + "(by: " + dateAndTime + ")";
+      return "[D][ ] " + this.description + " " + "(by: " + newDateTimeString + ")";
     }
   }
 
-  /**
-   * Retrieves the deadline date and time of the task.
-   *
-   * @return The deadline date and time of the task.
-   */
   public String getDateAndTime() {
+    return originalDateTimeString;
+  }
+
+  public LocalDateTime getLocalDateTime() {
     return dateAndTime;
   }
+
 }

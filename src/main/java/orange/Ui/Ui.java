@@ -3,7 +3,9 @@ package orange.Ui;
 import orange.task.Task;
 import orange.task.TaskList;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import orange.parser.DateParser;
 
 /**
  * Provides user interface functionalities for the Orange chatbot.
@@ -151,7 +153,13 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
-
-
+    public static void showMatchingTasks(ArrayList<Task> matchingTasks, LocalDate checkDate) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the list of tasks that are due on " + DateParser.getStringFromLocalDate(checkDate));
+        for(Task t: matchingTasks) {
+            System.out.println("\t" + t.GetTaskWithCompletion());
+        }
+        System.out.println("You have " + matchingTasks.size() + " tasks in the list.");
+    }
 
 }

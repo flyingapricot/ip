@@ -1,59 +1,48 @@
-/**
- * Represents an Event task with a start and end date/time.
- * An Event task is a type of task that includes a completion status
- * and a time period during which the event takes place.
- *
- * @see Task
- */
 package orange.task;
+
+import orange.exception.OrangeException;
+import orange.parser.DateParser;
+
+import java.time.LocalDateTime;
 
 public class Events extends Task {
 
-  /**
-   * The start date and time of the event.
-   */
-  protected String startDateAndTime;
+  protected LocalDateTime startDateAndTime;
+  protected String newStartDateTimeString;
+  protected String originalStartDateTimeString;
 
-  /**
-   * The end date and time of the event.
-   */
-  protected String endDateAndTime;
+  protected LocalDateTime endDateAndTime;
+  protected String newEndDateTimeString;
+  protected String originalEndDateTimeString;
 
-  /**
-   * Constructs an Event task with a description, completion status, start, and end time.
-   *
-   * @param description The description of the event.
-   * @param isDone The completion status of the event.
-   * @param startDateAndTime The start date and time of the event.
-   * @param endDateAndTime The end date and time of the event.
-   */
-  public Events(String description, boolean isDone, String startDateAndTime, String endDateAndTime) {
+
+
+  public Events(
+      String description, boolean isDone, String originalStartDateTimeString, String originalEndDateTimeString) throws OrangeException {
     super(description, isDone);
-    this.startDateAndTime = startDateAndTime;
-    this.endDateAndTime = endDateAndTime;
+    this.originalStartDateTimeString = originalStartDateTimeString;
+    this.startDateAndTime = DateParser.getDateTimeObject(originalStartDateTimeString);
+    this.newStartDateTimeString = DateParser.getDifferentFormat(startDateAndTime);
+
+
+    this.originalEndDateTimeString = originalEndDateTimeString;
+    this.endDateAndTime = DateParser.getDateTimeObject(originalEndDateTimeString);
+    this.newEndDateTimeString = DateParser.getDifferentFormat(endDateAndTime);
+
   }
 
-  /**
-   * Constructs an Event task with a description, start, and end time.
-   * The task is initially not completed.
-   *
-   * @param description The description of the event.
-   * @param startDateAndTime The start date and time of the event.
-   * @param endDateAndTime The end date and time of the event.
-   */
-  public Events(String description, String startDateAndTime, String endDateAndTime) {
+  public Events(String description, String originalStartDateTimeString, String originalEndDateTimeString) throws OrangeException {
     super(description);
-    this.startDateAndTime = startDateAndTime;
-    this.endDateAndTime = endDateAndTime;
+    this.originalStartDateTimeString = originalStartDateTimeString;
+    this.startDateAndTime = DateParser.getDateTimeObject(originalStartDateTimeString);
+    this.newStartDateTimeString = DateParser.getDifferentFormat(startDateAndTime);
+
+
+    this.originalEndDateTimeString = originalEndDateTimeString;
+    this.endDateAndTime = DateParser.getDateTimeObject(originalEndDateTimeString);
+    this.newEndDateTimeString = DateParser.getDifferentFormat(endDateAndTime);
   }
 
-  /**
-   * Prints the task with its completion status.
-   * <p>
-   * The task format includes an "E" to indicate an event task,
-   * followed by a completion indicator ([X] for done, [ ] for not done).
-   * </p>
-   */
   @Override
   public void printTaskWithCompletion() {
     if (this.isDone) {
@@ -63,39 +52,40 @@ public class Events extends Task {
     }
   }
 
-  /**
-   * Returns a string representation of the task, including its completion status and time period.
-   * <p>
-   * The format is [E][X] for completed tasks and [E][ ] for incomplete tasks,
-   * followed by the task description and time period.
-   * </p>
-   *
-   * @return A string representing the task with its completion status, start, and end time.
-   */
   @Override
   public String GetTaskWithCompletion() {
     if (this.isDone) {
-      return "[E][X] " + this.description + " (from: " + startDateAndTime + " to: " + endDateAndTime + ")";
+      return "[E][X] "
+          + this.description
+          + " "
+          + "(from: "
+          + newStartDateTimeString
+          + " to: "
+          + newStartDateTimeString
+          + ")";
     } else {
-      return "[E][ ] " + this.description + " (from: " + startDateAndTime + " to: " + endDateAndTime + ")";
+      return "[E][ ] "
+          + this.description
+          + " "
+          + "(from: "
+          + newStartDateTimeString
+          + " to: "
+          + newStartDateTimeString
+          + ")";
     }
   }
 
-  /**
-   * Retrieves the start date and time of the event.
-   *
-   * @return The start date and time of the event.
-   */
   public String getStartDateAndTime() {
-    return startDateAndTime;
+    return originalStartDateTimeString;
   }
 
-  /**
-   * Retrieves the end date and time of the event.
-   *
-   * @return The end date and time of the event.
-   */
   public String getEndDateAndTime() {
+    return originalEndDateTimeString;
+  }
+
+  public LocalDateTime getEndLocalDateTime()
+  {
     return endDateAndTime;
   }
+
 }
