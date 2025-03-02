@@ -1,11 +1,11 @@
+
+package orange.exception;
 /**
  * Represents a custom exception for handling errors specific to the Orange chatbot.
  * This exception is associated with an ExceptionType that provides an error code and message.
  *
  * @see ExceptionType
  */
-package orange.exception;
-
 public class OrangeException extends Exception {
   /**
    * The type of exception that occurred.

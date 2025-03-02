@@ -1,11 +1,4 @@
-/**
- * Parses user input and extracts command information for processing.
- * This class handles parsing different command types and extracting relevant data.
- *
- * @see OrangeException
- * @see Ui
- * @see DateParser
- */
+
 package orange.parser;
 
 import orange.exception.ExceptionType;
@@ -18,7 +11,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import static orange.exception.ExceptionType.*;
-
+/**
+ * Parses user input and extracts command information for processing.
+ * This class handles parsing different command types and extracting relevant data.
+ *
+ * @see OrangeException
+ * @see Ui
+ * @see DateParser
+ */
 public class Parser {
     /**
      * A set of valid command keywords.

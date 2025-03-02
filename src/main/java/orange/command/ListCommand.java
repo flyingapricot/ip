@@ -1,3 +1,7 @@
+
+package orange.command;
+
+import orange.Ui.Ui;
 /**
  * Handles the execution of the list command.
  * This command displays all tasks in the task list.
@@ -5,10 +9,6 @@
  * @see Command
  * @see Ui
  */
-package orange.command;
-
-import orange.Ui.Ui;
-
 public class ListCommand extends Command {
     /**
      * Constructs a ListCommand instance.

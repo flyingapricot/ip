@@ -1,13 +1,13 @@
+
+package orange.exception;
+
+import orange.task.TaskList;
 /**
  * Defines different types of exceptions that can occur in the Orange chatbot.
  * Each exception type includes an error code and a descriptive error message.
  *
  * @see OrangeException
  */
-package orange.exception;
-
-import orange.task.TaskList;
-
 public enum ExceptionType {
     /**
      * Represents an unknown command exception.

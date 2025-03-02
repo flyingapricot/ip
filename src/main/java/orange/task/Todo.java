@@ -1,3 +1,5 @@
+
+package orange.task;
 /**
  * Represents a Todo task.
  * A Todo task is a type of task that consists of a description and completion status
@@ -5,8 +7,6 @@
  *
  * @see Task
  */
-package orange.task;
-
 public class Todo extends Task {
 
   /**

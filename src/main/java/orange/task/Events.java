@@ -1,3 +1,10 @@
+
+package orange.task;
+
+import orange.exception.OrangeException;
+import orange.parser.DateParser;
+
+import java.time.LocalDateTime;
 /**
  * Represents an event task with a specific start and end date/time.
  * This class extends Task and includes functionality for handling date parsing and formatting.
@@ -6,13 +13,6 @@
  * @see DateParser
  * @see OrangeException
  */
-package orange.task;
-
-import orange.exception.OrangeException;
-import orange.parser.DateParser;
-
-import java.time.LocalDateTime;
-
 public class Events extends Task {
   /**
    * The start date and time of the event as a LocalDateTime object.

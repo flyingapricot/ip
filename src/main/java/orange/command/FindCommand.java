@@ -1,3 +1,13 @@
+
+package orange.command;
+
+import orange.Ui.Ui;
+import orange.exception.OrangeException;
+import orange.parser.Parser;
+import orange.task.Task;
+import orange.task.TaskList;
+
+import java.util.ArrayList;
 /**
  * Handles the execution of the find command.
  * This command searches for tasks in the task list that match a given keyword.
@@ -8,16 +18,6 @@
  * @see Parser
  * @see Ui
  */
-package orange.command;
-
-import orange.Ui.Ui;
-import orange.exception.OrangeException;
-import orange.parser.Parser;
-import orange.task.Task;
-import orange.task.TaskList;
-
-import java.util.ArrayList;
-
 public class FindCommand extends Command {
     /**
      * Executes the find command.

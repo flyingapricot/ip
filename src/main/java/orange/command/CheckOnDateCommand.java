@@ -1,14 +1,3 @@
-/**
- * Handles the execution of the "check on date" command.
- * This command finds and lists all tasks that are scheduled for a specific date.
- *
- * @see Command
- * @see Task
- * @see TaskList
- * @see Parser
- * @see Ui
- * @see DateParser
- */
 package orange.command;
 
 import orange.Ui.Ui;
@@ -23,6 +12,17 @@ import orange.task.TaskList;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Handles the execution of the "check on date" command.
+ * This command finds and lists all tasks that are scheduled for a specific date.
+ *
+ * @see Command
+ * @see Task
+ * @see TaskList
+ * @see Parser
+ * @see Ui
+ * @see DateParser
+ */
 public class CheckOnDateCommand extends Command {
     /**
      * Executes the "check on date" command.

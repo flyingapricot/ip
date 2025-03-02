@@ -1,3 +1,12 @@
+
+package orange.command;
+
+import orange.Ui.Ui;
+import orange.exception.OrangeException;
+import orange.parser.Parser;
+import orange.storage.Storage;
+import orange.task.TaskList;
+import orange.task.Todo;
 /**
  * Handles the execution of the todo command.
  * This command creates a new todo task and adds it to the task list.
@@ -9,15 +18,6 @@
  * @see Storage
  * @see Ui
  */
-package orange.command;
-
-import orange.Ui.Ui;
-import orange.exception.OrangeException;
-import orange.parser.Parser;
-import orange.storage.Storage;
-import orange.task.TaskList;
-import orange.task.Todo;
-
 public class TodoCommand extends Command {
     /**
      * Executes the todo command.

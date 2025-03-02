@@ -1,3 +1,7 @@
+
+package orange.task;
+
+import java.util.ArrayList;
 /**
  * Represents a generic task with a description and completion status.
  * This serves as a base class for specific task types such as Deadlines, Events And Todo.
@@ -5,10 +9,6 @@
  * @see Deadline
  * @see Events
  */
-package orange.task;
-
-import java.util.ArrayList;
-
 public class Task {
   /**
    * The description of the task.

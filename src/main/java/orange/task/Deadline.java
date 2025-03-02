@@ -1,3 +1,10 @@
+
+package orange.task;
+
+import orange.exception.OrangeException;
+import orange.parser.DateParser;
+
+import java.time.LocalDateTime;
 /**
  * Represents a deadline task with a specific due date and time.
  * This class extends Task and includes functionality for handling date parsing and formatting.
@@ -6,13 +13,6 @@
  * @see DateParser
  * @see OrangeException
  */
-package orange.task;
-
-import orange.exception.OrangeException;
-import orange.parser.DateParser;
-
-import java.time.LocalDateTime;
-
 public class Deadline extends Task {
   /**
    * The due date and time of the deadline task as a LocalDateTime object.

@@ -1,14 +1,4 @@
-/**
- * Handles the execution of the deadline command.
- * This command creates a new deadline task and adds it to the task list.
- *
- * @see Command
- * @see Deadline
- * @see TaskList
- * @see Parser
- * @see Storage
- * @see Ui
- */
+
 package orange.command;
 
 import orange.Ui.Ui;
@@ -22,6 +12,17 @@ import orange.task.TaskList;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Handles the execution of the deadline command.
+ * This command creates a new deadline task and adds it to the task list.
+ *
+ * @see Command
+ * @see Deadline
+ * @see TaskList
+ * @see Parser
+ * @see Storage
+ * @see Ui
+ */
 public class DeadlineCommand extends Command {
     /**
      * Executes the deadline command.

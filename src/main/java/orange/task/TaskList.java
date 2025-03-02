@@ -1,14 +1,14 @@
+
+package orange.task;
+
+import orange.exception.OrangeException;
+import java.util.ArrayList;
 /**
  * Manages a list of tasks using the singleton pattern.
  * This class allows adding, updating, deleting, and listing tasks.
  *
  * @see Task
  */
-package orange.task;
-
-import orange.exception.OrangeException;
-import java.util.ArrayList;
-
 public class TaskList {
     /**
      * The single instance of TaskList.

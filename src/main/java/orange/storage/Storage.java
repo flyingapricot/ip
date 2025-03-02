@@ -1,13 +1,4 @@
-/**
- * Handles loading tasks from a file and saving tasks into a file.
- * This class manages persistent storage of tasks in a CSV file.
- *
- * @see Task
- * @see TaskList
- * @see Todo
- * @see Deadline
- * @see Events
- */
+
 package orange.storage;
 
 import orange.exception.OrangeException;
@@ -21,7 +12,16 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Handles loading tasks from a file and saving tasks into a file.
+ * This class manages persistent storage of tasks in a CSV file.
+ *
+ * @see Task
+ * @see TaskList
+ * @see Todo
+ * @see Deadline
+ * @see Events
+ */
 public class Storage {
     /**
      * Path to the task storage file.

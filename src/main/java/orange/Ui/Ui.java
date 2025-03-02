@@ -153,6 +153,12 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays a list of tasks that are due on a specific date.
+     *
+     * @param matchingTasks An ArrayList of tasks that match the given date.
+     * @param checkDate The date to check for matching tasks.
+     */
     public static void showMatchingTasks(ArrayList<Task> matchingTasks, LocalDate checkDate) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the list of tasks that are due on " + DateParser.getStringFromLocalDate(checkDate));

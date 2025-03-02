@@ -1,3 +1,9 @@
+
+package orange.task;
+
+import orange.command.*;
+
+import java.util.HashMap;
 /**
  * Manages the mapping of commands to their respective handlers.
  * The TaskManager class stores a command map and provides methods
@@ -5,12 +11,6 @@
  *
  * @see CommandHandler
  */
-package orange.task;
-
-import orange.command.*;
-
-import java.util.HashMap;
-
 public class TaskManager {
     /**
      * A mapping of command keywords to their respective command handlers.

@@ -1,9 +1,4 @@
-/**
- * Provides utility methods for parsing and formatting date and time values.
- * This class handles conversions between string representations and LocalDate/LocalDateTime objects.
- *
- * @see OrangeException
- */
+
 package orange.parser;
 
 import orange.exception.OrangeException;
@@ -16,7 +11,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static orange.exception.ExceptionType.*;
-
+/**
+ * Provides utility methods for parsing and formatting date and time values.
+ * This class handles conversions between string representations and LocalDate/LocalDateTime objects.
+ *
+ * @see OrangeException
+ */
 public class DateParser {
     /**
      * Converts a string representation of a date and time into a LocalDateTime object.

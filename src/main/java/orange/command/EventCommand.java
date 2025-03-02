@@ -1,14 +1,4 @@
-/**
- * Handles the execution of the event command.
- * This command creates a new event task and adds it to the task list.
- *
- * @see Command
- * @see Events
- * @see TaskList
- * @see Parser
- * @see Storage
- * @see Ui
- */
+
 package orange.command;
 
 import orange.Ui.Ui;
@@ -20,6 +10,17 @@ import orange.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Handles the execution of the event command.
+ * This command creates a new event task and adds it to the task list.
+ *
+ * @see Command
+ * @see Events
+ * @see TaskList
+ * @see Parser
+ * @see Storage
+ * @see Ui
+ */
 public class EventCommand extends Command {
     /**
      * Executes the event command.
