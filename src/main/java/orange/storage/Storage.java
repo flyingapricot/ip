@@ -1,3 +1,13 @@
+/**
+ * Handles loading tasks from a file and saving tasks into a file.
+ * This class manages persistent storage of tasks in a CSV file.
+ *
+ * @see Task
+ * @see TaskList
+ * @see Todo
+ * @see Deadline
+ * @see Events
+ */
 package orange.storage;
 
 import orange.exception.OrangeException;
@@ -12,130 +22,119 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-
-//Deals with loading tasks from the file and saving tasks in the file
 public class Storage {
+    /**
+     * Path to the task storage file.
+     */
+    private static final String TASKFILE = "./saved.csv";
 
-    private static final String TASKFILE = "./saved.csv"; //location of the taskfile
-    private static boolean saveFileValid = true; //if save file is not valid, it will not be used
+    /**
+     * Indicates if the save file is valid and can be used.
+     */
+    private static boolean saveFileValid = true;
 
-    //On initalisation, create file if it does not exist
+    /**
+     * Initializes the task file by creating it if it does not exist.
+     *
+     * @throws IOException If an error occurs while creating the file.
+     */
     private void initaliseTaskfile() throws IOException {
         Path path = Paths.get(TASKFILE);
-        // Check if the file exists
         if (Files.exists(path)) {
             System.out.println("File exists, reading task file: " + TASKFILE);
         } else {
-            // File doesn't exist, so create it
             Files.createFile(path);
             System.out.println("Task File created at: " + TASKFILE);
         }
     }
 
-    //Update the csv
+    /**
+     * Updates the task storage file with the current task list.
+     */
     public static void updateTaskFile() {
-        //Based on the type of the task there is a different way of updating the csv
         try {
-            FileWriter writer = new FileWriter(TASKFILE, false); // false to overwrite
-            writer.write("");  // Write the new content
+            FileWriter writer = new FileWriter(TASKFILE, false);
+            writer.write("");
             writer.close();
-        } catch(IOException e) {
-            System.out.println("Error clearing csv file" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error clearing CSV file: " + e.getMessage());
         }
+
         int i = 0;
         ArrayList<Task> taskList = TaskList.getInstance().getTasks();
-        for(Task task: taskList) {
-            switch(task.getClass().getName()) {
-                case "orange.task.Todo":
-                    try {
-                        Path path = Paths.get(TASKFILE);
-                        // Write data rows
-                        //Task type,status,task name,from date,to date
-                        String finalTask = "T," + task.getIsDone() + "," + task.getDescription() +",-,-";
-                        Files.write(path, List.of(finalTask), StandardOpenOption.APPEND);
-                    } catch (IOException e) {
-                        System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
-                    }
-                    break;
-                case "orange.task.Deadline":
-                    try {
-                        Path path = Paths.get(TASKFILE);
-                        // Write data rows
-                        //Task type,status,task name,from date,to date
-                        String finalDeadline = "D,"  + task.getIsDone() + "," + task.getDescription() + ",-," + ((Deadline) task).getDateAndTime();
-                        Files.write(path, List.of(finalDeadline), StandardOpenOption.APPEND);
-                    } catch (IOException e) {
-                        System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
-                    }
-                    break;
-                case "orange.task.Events":
-                    try {
-                        Path path = Paths.get(TASKFILE);
-                        // Write data rows
-                        //Task type,status,task name,from date,to date
-                        String finalEvent = "E," + task.getIsDone() + "," + task.getDescription() + "," + ((Events) task).getStartDateAndTime() + "," + ((Events) task).getEndDateAndTime();
-                        Files.write(path, List.of(finalEvent), StandardOpenOption.APPEND);
-                    } catch (IOException e) {
-                        System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
-                    }
-                    break;
+        for (Task task : taskList) {
+            try {
+                Path path = Paths.get(TASKFILE);
+                String finalTask = "";
+                switch (task.getClass().getName()) {
+                    case "orange.task.Todo":
+                        finalTask = "T," + task.getIsDone() + "," + task.getDescription() + ",-,-";
+                        break;
+                    case "orange.task.Deadline":
+                        finalTask = "D," + task.getIsDone() + "," + task.getDescription() + ",-," + ((Deadline) task).getDateAndTime();
+                        break;
+                    case "orange.task.Events":
+                        finalTask = "E," + task.getIsDone() + "," + task.getDescription() + "," + ((Events) task).getStartDateAndTime() + "," + ((Events) task).getEndDateAndTime();
+                        break;
+                }
+                Files.write(path, List.of(finalTask), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
             }
             i++;
         }
     }
 
-    //Load Tasks into taskmanager's arraylist
+    /**
+     * Loads tasks from the storage file into the task manager's list.
+     *
+     * @throws OrangeException If an error occurs while parsing the task file.
+     */
     private void loadTasks() throws OrangeException {
         try {
             Path taskPath = Paths.get(TASKFILE);
             List<String> lines = Files.readAllLines(taskPath);
             for (String line : lines) {
                 String[] values = line.split(",");
-                switch(values[0]) {
+                switch (values[0]) {
                     case "T":
-                        boolean taskStatus = values[1].equals("true");
-                        Todo todo = new Todo(values[2],taskStatus);
-                        TaskList.getInstance().addTask(todo);
+                        TaskList.getInstance().addTask(new Todo(values[2], Boolean.parseBoolean(values[1])));
                         break;
                     case "D":
-                        boolean deadlineStatus = values[1].equals("true");
-                        Deadline deadline = new Deadline(values[2],deadlineStatus,values[4]);
-                        TaskList.getInstance().addTask(deadline);
+                        TaskList.getInstance().addTask(new Deadline(values[2], Boolean.parseBoolean(values[1]), values[4]));
                         break;
                     case "E":
-                        boolean eventsStatus = values[1].equals("true");
-                        Events event = new Events(values[2],eventsStatus,values[4],values[3]);
-                        TaskList.getInstance().addTask(event);
+                        TaskList.getInstance().addTask(new Events(values[2], Boolean.parseBoolean(values[1]), values[4], values[3]));
                         break;
                 }
             }
-
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error reading the file and loading tasks: " + e.getMessage());
             saveFileValid = false;
         }
-
     }
 
-    //Constructor
-    public Storage() throws OrangeException{
-        //Initalises task file (creates it if it does not exist)
+    /**
+     * Constructs a Storage object and initializes the task file.
+     *
+     * @throws OrangeException If there is an error loading tasks.
+     */
+    public Storage() throws OrangeException {
         try {
             initaliseTaskfile();
         } catch (IOException e) {
-            //Critical Error
-            //If storage file cannot be created, chatbot can be used, but there will be no task saving feature
             System.out.println(e);
             saveFileValid = false;
         }
-
-        //Read the task file and load any tasks into the arraylist of tasks
-        //Task type,status,task name,from date,to date
-        if(saveFileValid) loadTasks();
+        if (saveFileValid) loadTasks();
     }
 
+    /**
+     * Returns whether the save file is valid.
+     *
+     * @return True if the save file is valid, false otherwise.
+     */
     public boolean getSaveFileValid() {
         return saveFileValid;
     }
-
 }

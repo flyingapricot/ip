@@ -1,3 +1,11 @@
+/**
+ * Parses user input and extracts command information for processing.
+ * This class handles parsing different command types and extracting relevant data.
+ *
+ * @see OrangeException
+ * @see Ui
+ * @see DateParser
+ */
 package orange.parser;
 
 import orange.exception.ExceptionType;
@@ -5,7 +13,6 @@ import orange.exception.OrangeException;
 import orange.Ui.Ui;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,37 +20,65 @@ import java.util.HashSet;
 import static orange.exception.ExceptionType.*;
 
 public class Parser {
-    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark","unmark","list","todo","event","deadline","delete","checkondate","find"));
+    /**
+     * A set of valid command keywords.
+     */
+    private static final HashSet<String> commands = new HashSet<>(Arrays.asList("mark", "unmark", "list", "todo", "event", "deadline", "delete", "checkondate", "find"));
+
+    /**
+     * Stores the user input command line.
+     */
     protected static String line;
 
+    /**
+     * Constructs a Parser instance with the given user input.
+     *
+     * @param line The user input command line.
+     */
     public Parser(String line) {
         Parser.line = line;
     }
 
+    /**
+     * Updates the stored command line with new user input.
+     *
+     * @param line The new user input command line.
+     */
     public void updateLine(String line) {
         Parser.line = line;
     }
 
+    /**
+     * Splits the user input into individual components.
+     *
+     * @return An array of strings representing the user input components.
+     */
     private String[] getUserInput() {
         return line.split(" ");
     }
 
+    /**
+     * Extracts and validates the command word from the user input.
+     *
+     * @return The extracted command word if valid, otherwise an empty string.
+     */
     public String scanForCommandWord() {
-        //Any command given to the chatbot must start with one of the command keywords defined in the commands hashset
         String commandWord = getUserInput()[0];
-
-        //Try Catch Block to catch no keyword used
-        try{
-            if(!commands.contains(commandWord)) throw new OrangeException(ExceptionType.UNKNOWN_COMMAND);
-        }catch(OrangeException o) {
+        try {
+            if (!commands.contains(commandWord)) throw new OrangeException(ExceptionType.UNKNOWN_COMMAND);
+        } catch (OrangeException o) {
             Ui.showError(o.getCustomMessage());
             return "";
         }
-
-        return commandWord; //Valid command word detected
+        return commandWord;
     }
 
-    //Parse a todo task
+    /**
+     * Parses a "todo" task command and extracts the task description.
+     *
+     * @return The extracted todo task description.
+     * @throws OrangeException If the todo task description is missing.
+     */
     public static String parseTodo() throws OrangeException{
         String TodoTask = "";
         try {
@@ -58,6 +93,12 @@ public class Parser {
         return TodoTask;
     }
 
+    /**
+     * Parses a "deadline" task command and extracts the task description and due date.
+     *
+     * @return A list containing the task description and due date.
+     * @throws OrangeException If the deadline format is incorrect or missing.
+     */
     public static ArrayList<String> parseDeadline() throws OrangeException{
         int position = line.indexOf("/by");
         if(position == -1) throw new OrangeException(MISSING_DEADLINE_BYWORD);
@@ -92,6 +133,12 @@ public class Parser {
         return new ArrayList<>(Arrays.asList(deadlineTask, doTaskBy));
     }
 
+    /**
+     * Parses an "event" task command and extracts the task description, start time, and end time.
+     *
+     * @return A list containing the task description, start time, and end time.
+     * @throws OrangeException If the event format is incorrect or missing.
+     */
     public static ArrayList<String> parseEvent() throws OrangeException{
 
         int fromPosition = line.indexOf("/from");
@@ -148,6 +195,12 @@ public class Parser {
         return new ArrayList<>(Arrays.asList(eventTask,startEventBy,doEventBy));
     }
 
+    /**
+     * Parses and extracts the task number for marking as done.
+     *
+     * @return The task number to mark.
+     * @throws OrangeException If the task number is missing or invalid.
+     */
     public static int parseMark() throws OrangeException {
         String taskToMarkString = "";
         int taskToMark = -1;
@@ -168,6 +221,12 @@ public class Parser {
         return taskToMark - 1;
     }
 
+    /**
+     * Parses and extracts the task number for unmarking as done.
+     *
+     * @return The task number to unmark.
+     * @throws OrangeException If the task number is missing or invalid.
+     */
     public static int parseUnMark() throws OrangeException {
         String taskToUnMarkString = "";
         int taskToUnMark = -1;
@@ -189,6 +248,12 @@ public class Parser {
         return taskToUnMark - 1;
     }
 
+    /**
+     * Parses and extracts the task number for deletion.
+     *
+     * @return The task number to delete.
+     * @throws OrangeException If the task number is missing or invalid.
+     */
     public static int parseDelete() throws OrangeException {
         String taskToDeleteString = "";
         int taskToDelete = -1;
@@ -210,6 +275,12 @@ public class Parser {
         return taskToDelete - 1;
     }
 
+    /**
+     * Parses and extracts the search keyword for finding tasks.
+     *
+     * @return The search keyword.
+     * @throws OrangeException If the keyword is missing.
+     */
     public static String parseFind() throws OrangeException {
         String taskToFind = "";
         try {
@@ -224,7 +295,12 @@ public class Parser {
         return taskToFind;
 
     }
-
+    /**
+     * Parses and extracts the date for checking tasks scheduled on that date.
+     *
+     * @return The parsed LocalDate object representing the date.
+     * @throws OrangeException If the date is missing or invalid.
+     */
     public static LocalDate parseCheckTasksOnDate() throws OrangeException {
         String givenDate = "";
         try {
