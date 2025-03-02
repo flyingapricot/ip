@@ -2,6 +2,7 @@ package orange.storage;
 
 import orange.task.*;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 //Deals with loading tasks from the file and saving tasks in the file
-public class storage {
+public class Storage {
 
     private static final String TASKFILE = "./saved.csv"; //location of the taskfile
     private static boolean saveFileValid = true; //if save file is not valid, it will not be used
@@ -31,40 +32,47 @@ public class storage {
     }
 
     //Update the csv
-    public void updateTaskFile() {
+    public static void updateTaskFile() {
         //Based on the type of the task there is a different way of updating the csv
+        try {
+            FileWriter writer = new FileWriter(TASKFILE, false); // false to overwrite
+            writer.write("");  // Write the new content
+            writer.close();
+        } catch(IOException e) {
+            System.out.println("Error clearing csv file" + e.getMessage());
+        }
         int i = 0;
         ArrayList<Task> taskList = TaskList.getInstance().getTasks();
         for(Task task: taskList) {
             switch(task.getClass().getName()) {
-                case "task.Todo":
+                case "orange.task.Todo":
                     try {
                         Path path = Paths.get(TASKFILE);
                         // Write data rows
                         //Task type,status,task name,from date,to date
-                        String finalTask = "T," + "0," + task +",-,-\n";
+                        String finalTask = "T," + task.getIsDone() + "," + task.getDescription() +",-,-";
                         Files.write(path, List.of(finalTask), StandardOpenOption.APPEND);
                     } catch (IOException e) {
                         System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
                     }
                     break;
-                case "task.Deadline":
+                case "orange.task.Deadline":
                     try {
                         Path path = Paths.get(TASKFILE);
                         // Write data rows
                         //Task type,status,task name,from date,to date
-                        String finalDeadline = "D,0," + task + ",-," + ((Deadline) task).getDateAndTime() + "\n";
+                        String finalDeadline = "D,"  + task.getIsDone() + "," + task.getDescription() + ",-," + ((Deadline) task).getDateAndTime();
                         Files.write(path, List.of(finalDeadline), StandardOpenOption.APPEND);
                     } catch (IOException e) {
                         System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
                     }
                     break;
-                case "task.Event":
+                case "orange.task.Events":
                     try {
                         Path path = Paths.get(TASKFILE);
                         // Write data rows
                         //Task type,status,task name,from date,to date
-                        String finalEvent = "D,0," + task + "," + ((Events) task).getStartDateAndTime() + "," + ((Events) task).getEndDateAndTime() + "\n";
+                        String finalEvent = "E," + task.getIsDone() + "," + task.getDescription() + "," + ((Events) task).getStartDateAndTime() + "," + ((Events) task).getEndDateAndTime();
                         Files.write(path, List.of(finalEvent), StandardOpenOption.APPEND);
                     } catch (IOException e) {
                         System.out.println("Error writing Task " + i + " to CSV file: " + e.getMessage());
@@ -84,20 +92,17 @@ public class storage {
                 String[] values = line.split(",");
                 switch(values[0]) {
                     case "T":
-                        int status = Integer.parseInt(values[1]);
-                        boolean taskStatus = status == 1;
+                        boolean taskStatus = values[1].equals("true");
                         Todo todo = new Todo(values[2],taskStatus);
                         TaskList.getInstance().addTask(todo);
                         break;
                     case "D":
-                        int deadlines = Integer.parseInt(values[1]);
-                        boolean deadlineStatus = deadlines == 1;
+                        boolean deadlineStatus = values[1].equals("true");
                         Deadline deadline = new Deadline(values[2],deadlineStatus,values[4]);
                         TaskList.getInstance().addTask(deadline);
                         break;
                     case "E":
-                        int events = Integer.parseInt(values[1]);
-                        boolean eventsStatus = events == 1;
+                        boolean eventsStatus = values[1].equals("true");
                         Events event = new Events(values[2],eventsStatus,values[4],values[3]);
                         TaskList.getInstance().addTask(event);
                         break;
@@ -112,13 +117,14 @@ public class storage {
     }
 
     //Constructor
-    public storage(ArrayList<Task> tasks) {
+    public Storage() {
         //Initalises task file (creates it if it does not exist)
         try {
             initaliseTaskfile();
         } catch (IOException e) {
             //Critical Error
             //If storage file cannot be created, chatbot can be used, but there will be no task saving feature
+            System.out.println(e);
             saveFileValid = false;
         }
 

@@ -1,6 +1,8 @@
 package orange.task;
 
 
+import orange.exception.OrangeException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -8,7 +10,7 @@ public class TaskList {
     private static TaskList instance;
 
     //Single list of tasks (shared by all Task objects)
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     // Private constructor to prevent instantiation from other classes
     private TaskList() {}
@@ -27,22 +29,20 @@ public class TaskList {
     }
 
     //Method to update the task list
-    public void updateTask(int taskNumber, Task newTask) {
-        if(taskNumber >= taskList.size()) {
+    public void updateTask(int taskNumber, Task newTask) throws IndexOutOfBoundsException {
+        if(taskNumber >= taskList.size() || taskNumber < 0) {
             //Task does not exist
-            //Throw error?
-            return;
+            throw new IndexOutOfBoundsException();
         }
         //Update the task at the given task number
         taskList.set(taskNumber, newTask);
     }
 
     //Method to delete task
-    public void deleteTask(int taskNumber) {
-        if(taskNumber >= taskList.size()) {
+    public void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
+        if(taskNumber >= taskList.size() || taskNumber < 0) {
             //Task does not exist
-            //Throw error?
-            return;
+            throw new IndexOutOfBoundsException();
         }
         taskList.remove(taskNumber);
     }
@@ -64,6 +64,15 @@ public class TaskList {
     //Get the taskList size
     public int getSize() {
         return taskList.size();
+    }
+
+    //Get the task at a given index
+    public void updateCompletionStatus(int taskNumber,boolean status) throws IndexOutOfBoundsException {
+        if(taskNumber >= taskList.size() || taskNumber < 0) {
+            //Task does not exist
+            throw new IndexOutOfBoundsException();
+        }
+        taskList.get(taskNumber).setIsDone(status);
     }
 
 }

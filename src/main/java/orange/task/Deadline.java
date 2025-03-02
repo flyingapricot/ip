@@ -26,7 +26,7 @@ public class Deadline extends Task {
   @Override
   public String GetTaskWithCompletion() {
     if (this.isDone) {
-      return "[D][X] " + this.description + "(by: " + dateAndTime + ")";
+      return "[D][X] " + this.description + " (by: " + dateAndTime + ")";
     } else {
       return "[D][ ] " + this.description + " " + "(by: " + dateAndTime + ")";
     }

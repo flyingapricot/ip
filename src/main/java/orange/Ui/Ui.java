@@ -9,21 +9,6 @@ public class Ui {
     private static final String HORIZONTAL_LINE = "\t" + "-".repeat(50);
     private static final String CHATBOT_NAME = "ORANGE";
 
-//    //Constructor
-//    //Single instance of task manager
-//    private static Ui instance;
-//
-//    // Private constructor to prevent instantiation from other classes
-//    private Ui() {}
-//
-//    // Static method to get the instance of TaskList
-//    public static Ui getInstance() {
-//        if (instance == null) {
-//            instance = new Ui();
-//        }
-//        return instance;
-//    }
-
     public Ui() {}
 
     public static void greeting() {
@@ -36,6 +21,13 @@ public class Ui {
     public static void goodbye() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("\t" + "Bye. Hope to see you again soon!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void showListOfTasks() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("\tHere are the tasks in your list:");
+        TaskList.getInstance().listTasks();
         System.out.println(HORIZONTAL_LINE);
     }
 
