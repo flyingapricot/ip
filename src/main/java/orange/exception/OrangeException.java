@@ -1,39 +1,39 @@
-package orange.exception;
-/**
- * Represents a custom exception for handling errors specific to the Orange chatbot. This exception
- * is associated with an ExceptionType that provides an error code and message.
- *
- * @see ExceptionType
- */
-public class OrangeException extends Exception {
-    /** The type of exception that occurred. */
-    protected ExceptionType exception;
-
+    package orange.exception;
     /**
-     * Constructs an OrangeException with a specified exception type.
+     * Represents a custom exception for handling errors specific to the Orange chatbot. This exception
+     * is associated with an ExceptionType that provides an error code and message.
      *
-     * @param exception The specific exception type.
+     * @see ExceptionType
      */
-    public OrangeException(ExceptionType exception) {
-        super(exception.getMessage()); // Set message
-        this.exception = exception;
-    }
+    public class OrangeException extends Exception {
+        /** The type of exception that occurred. */
+        protected ExceptionType exception;
 
-    /**
-     * Retrieves the error message associated with this exception.
-     *
-     * @return The error message.
-     */
-    public String getCustomMessage() {
-        return exception.getMessage();
-    }
+        /**
+         * Constructs an OrangeException with a specified exception type.
+         *
+         * @param exception The specific exception type.
+         */
+        public OrangeException(ExceptionType exception) {
+            super(exception.getMessage()); // Set message
+            this.exception = exception;
+        }
 
-    /**
-     * Retrieves the error code associated with this exception.
-     *
-     * @return The error code.
-     */
-    public int getExceptionCode() {
-        return exception.getCode();
+        /**
+         * Retrieves the error message associated with this exception.
+         *
+         * @return The error message.
+         */
+        public String getCustomMessage() {
+            return exception.getMessage();
+        }
+
+        /**
+         * Retrieves the error code associated with this exception.
+         *
+         * @return The error code.
+         */
+        public int getExceptionCode() {
+            return exception.getCode();
+        }
     }
-}
