@@ -1,25 +1,20 @@
-
 package orange.task;
 
 import orange.command.*;
 
 import java.util.HashMap;
+
 /**
- * Manages the mapping of commands to their respective handlers.
- * The TaskManager class stores a command map and provides methods
- * to retrieve and execute specific task commands.
+ * Manages the mapping of commands to their respective handlers. The TaskManager class stores a
+ * command map and provides methods to retrieve and execute specific task commands.
  *
  * @see CommandHandler
  */
 public class TaskManager {
-    /**
-     * A mapping of command keywords to their respective command handlers.
-     */
+    /** A mapping of command keywords to their respective command handlers. */
     private HashMap<String, CommandHandler> commandMap;
 
-    /**
-     * The current task number being processed.
-     */
+    /** The current task number being processed. */
     private Integer taskNumber;
 
     /**
@@ -33,16 +28,18 @@ public class TaskManager {
 
     /**
      * Constructs a TaskManager instance and initializes the command map.
-     * <p>
-     * The command map associates command strings with their respective
-     * command handlers using method references.
-     * </p>
+     *
+     * <p>The command map associates command strings with their respective command handlers using
+     * method references.
      */
     public TaskManager() {
         commandMap = new HashMap<>();
-        commandMap.put("list", new ListCommand()::executeCommand); //Method reference to point to executeCommand method
+        commandMap.put(
+                "list",
+                new ListCommand()
+                        ::executeCommand); // Method reference to point to executeCommand method
         commandMap.put("unmark", new UnmarkCommand()::executeCommand);
-        commandMap.put("mark",  new MarkCommand()::executeCommand);
+        commandMap.put("mark", new MarkCommand()::executeCommand);
         commandMap.put("todo", new TodoCommand()::executeCommand);
         commandMap.put("deadline", new DeadlineCommand()::executeCommand);
         commandMap.put("event", new EventCommand()::executeCommand);

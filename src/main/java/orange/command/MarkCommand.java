@@ -1,5 +1,6 @@
-
 package orange.command;
+
+import static orange.exception.ExceptionType.INVALID_TASKNUMBER;
 
 import orange.Ui.Ui;
 import orange.exception.OrangeException;
@@ -8,10 +9,8 @@ import orange.storage.Storage;
 import orange.task.Task;
 import orange.task.TaskList;
 
-import static orange.exception.ExceptionType.INVALID_TASKNUMBER;
 /**
- * Handles the execution of the mark command.
- * This command marks a specified task as completed.
+ * Handles the execution of the mark command. This command marks a specified task as completed.
  *
  * @see Command
  * @see Task
@@ -23,10 +22,9 @@ import static orange.exception.ExceptionType.INVALID_TASKNUMBER;
 public class MarkCommand extends Command {
     /**
      * Executes the mark command.
-     * <p>
-     * Parses the user input to extract the task number, updates the completion status of the task,
-     * updates the UI, and saves the updated task list to storage.
-     * </p>
+     *
+     * <p>Parses the user input to extract the task number, updates the completion status of the
+     * task, updates the UI, and saves the updated task list to storage.
      *
      * @throws OrangeException If the task number is invalid.
      */

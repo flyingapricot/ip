@@ -1,28 +1,21 @@
-
 package orange.task;
 
-import orange.exception.OrangeException;
 import java.util.ArrayList;
+
 /**
- * Manages a list of tasks using the singleton pattern.
- * This class allows adding, updating, deleting, and listing tasks.
+ * Manages a list of tasks using the singleton pattern. This class allows adding, updating,
+ * deleting, and listing tasks.
  *
  * @see Task
  */
 public class TaskList {
-    /**
-     * The single instance of TaskList.
-     */
+    /** The single instance of TaskList. */
     private static TaskList instance;
 
-    /**
-     * The list of tasks (shared by all Task objects).
-     */
+    /** The list of tasks (shared by all Task objects). */
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-    /**
-     * Private constructor to prevent instantiation from other classes.
-     */
+    /** Private constructor to prevent instantiation from other classes. */
     private TaskList() {}
 
     /**
@@ -73,9 +66,7 @@ public class TaskList {
         taskList.remove(taskNumber);
     }
 
-    /**
-     * Lists all tasks in the task list with their respective numbers.
-     */
+    /** Lists all tasks in the task list with their respective numbers. */
     public void listTasks() {
         int count = 1;
         for (Task task : taskList) {
@@ -109,7 +100,8 @@ public class TaskList {
      * @param status The new completion status of the task.
      * @throws IndexOutOfBoundsException If the task number is out of bounds.
      */
-    public void updateCompletionStatus(int taskNumber, boolean status) throws IndexOutOfBoundsException {
+    public void updateCompletionStatus(int taskNumber, boolean status)
+            throws IndexOutOfBoundsException {
         if (taskNumber >= taskList.size() || taskNumber < 0) {
             throw new IndexOutOfBoundsException();
         }

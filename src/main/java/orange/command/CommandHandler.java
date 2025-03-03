@@ -1,10 +1,10 @@
-
 package orange.command;
 
 import orange.exception.OrangeException;
+
 /**
- * Functional interface for handling command execution.
- * Implementing classes must provide an implementation for the execute method.
+ * Functional interface for handling command execution. Implementing classes must provide an
+ * implementation for the execute method.
  *
  * @see OrangeException
  */

@@ -1,4 +1,3 @@
-
 package orange.command;
 
 import orange.Ui.Ui;
@@ -8,9 +7,10 @@ import orange.task.Task;
 import orange.task.TaskList;
 
 import java.util.ArrayList;
+
 /**
- * Handles the execution of the find command.
- * This command searches for tasks in the task list that match a given keyword.
+ * Handles the execution of the find command. This command searches for tasks in the task list that
+ * match a given keyword.
  *
  * @see Command
  * @see Task
@@ -21,10 +21,9 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
     /**
      * Executes the find command.
-     * <p>
-     * Parses the user input to extract the search keyword, searches for matching tasks in the task list,
-     * and displays the results in the UI.
-     * </p>
+     *
+     * <p>Parses the user input to extract the search keyword, searches for matching tasks in the
+     * task list, and displays the results in the UI.
      *
      * @throws OrangeException If there is an error in parsing the find command.
      */

@@ -1,10 +1,10 @@
-
 package orange.command;
 
 import orange.exception.OrangeException;
+
 /**
- * Represents an abstract command that can be executed.
- * All specific command classes must extend this class and implement the executeCommand method.
+ * Represents an abstract command that can be executed. All specific command classes must extend
+ * this class and implement the executeCommand method.
  *
  * @see OrangeException
  */
