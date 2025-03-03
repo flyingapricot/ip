@@ -33,12 +33,13 @@ import java.util.HashSet;
  * @see DateParser
  */
 public class Parser {
-    //In Java, instance variables, static variables, and constants (like private static final) should be declared in a certain order, generally:
-    //Instance variables (non-static fields).
-    //Static variables (static fields, like your commands field).
-    //Constants (typically declared static final).
-    //Constructors.
-    //Methods.
+    // In Java, instance variables, static variables, and constants (like private static final)
+    // should be declared in a certain order, generally:
+    // Instance variables (non-static fields).
+    // Static variables (static fields, like your commands field).
+    // Constants (typically declared static final).
+    // Constructors.
+    // Methods.
 
     /** Stores the user input command line. */
     protected static String line;

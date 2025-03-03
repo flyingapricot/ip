@@ -46,7 +46,6 @@ public class Storage {
         }
     }
 
-
     /**
      * Initializes the task file by creating it if it does not exist.
      *
@@ -79,30 +78,30 @@ public class Storage {
                 Path path = Paths.get(TASKFILE);
                 String finalTask = "";
                 switch (task.getClass().getName()) {
-                case "orange.task.Todo":
-                    finalTask = "T," + task.getIsDone() + "," + task.getDescription() + ",-,-";
-                    break;
-                case "orange.task.Deadline":
-                    finalTask =
-                            "D,"
-                                    + task.getIsDone()
-                                    + ","
-                                    + task.getDescription()
-                                    + ",-,"
-                                    + ((Deadline) task).getDateAndTime();
-                    break;
-                case "orange.task.Events":
-                    finalTask =
-                            "E,"
-                                    + task.getIsDone()
-                                    + ","
-                                    + task.getDescription()
-                                    + ","
-                                    + ((Events) task).getStartDateAndTime()
-                                    + ","
-                                    + ((Events) task).getEndDateAndTime();
-                    break;
-                default:
+                    case "orange.task.Todo":
+                        finalTask = "T," + task.getIsDone() + "," + task.getDescription() + ",-,-";
+                        break;
+                    case "orange.task.Deadline":
+                        finalTask =
+                                "D,"
+                                        + task.getIsDone()
+                                        + ","
+                                        + task.getDescription()
+                                        + ",-,"
+                                        + ((Deadline) task).getDateAndTime();
+                        break;
+                    case "orange.task.Events":
+                        finalTask =
+                                "E,"
+                                        + task.getIsDone()
+                                        + ","
+                                        + task.getDescription()
+                                        + ","
+                                        + ((Events) task).getStartDateAndTime()
+                                        + ","
+                                        + ((Events) task).getEndDateAndTime();
+                        break;
+                    default:
                 }
                 Files.write(path, List.of(finalTask), StandardOpenOption.APPEND);
             } catch (IOException e) {
@@ -152,7 +151,6 @@ public class Storage {
             saveFileValid = false;
         }
     }
-
 
     /**
      * Returns whether the save file is valid.
