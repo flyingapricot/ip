@@ -5,9 +5,8 @@ import orange.command.CommandHandler;
 import orange.exception.OrangeException;
 import orange.parser.Parser;
 import orange.storage.Storage;
-import orange.task.*;
-
-import java.util.*;
+import orange.task.TaskManager;
+import java.util.Scanner;
 
 /**
  * The Orange class represents the main entry point of the Orange chatbot. It initializes the

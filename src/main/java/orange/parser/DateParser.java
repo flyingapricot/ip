@@ -1,6 +1,5 @@
 package orange.parser;
 
-import static orange.exception.ExceptionType.*;
 
 import orange.exception.OrangeException;
 
@@ -11,6 +10,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static orange.exception.ExceptionType.INCORRECT_DATE_AND_TIME_FORMAT;
+import static orange.exception.ExceptionType.INVALID_DATE_OR_TIME;
+import static orange.exception.ExceptionType.INVALID_DATE;
 /**
  * Provides utility methods for parsing and formatting date and time values. This class handles
  * conversions between string representations and LocalDate/LocalDateTime objects.
@@ -29,7 +31,9 @@ public class DateParser {
         String dateTimePattern = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
         Pattern pattern = Pattern.compile(dateTimePattern);
         Matcher matcher = pattern.matcher(timeAndDate);
-        if (!matcher.matches()) throw new OrangeException(INCORRECT_DATE_AND_TIME_FORMAT);
+        if (!matcher.matches()) {
+            throw new OrangeException(INCORRECT_DATE_AND_TIME_FORMAT);
+        }
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

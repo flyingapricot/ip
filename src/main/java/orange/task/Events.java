@@ -96,7 +96,7 @@ public class Events extends Task {
      * @return The formatted event task string.
      */
     @Override
-    public String GetTaskWithCompletion() {
+    public String getTaskWithCompletion() {
         if (this.isDone) {
             return "[E][X] "
                     + this.description

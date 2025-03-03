@@ -70,7 +70,7 @@ public class TaskList {
     public void listTasks() {
         int count = 1;
         for (Task task : taskList) {
-            System.out.println("\t" + count + ". " + task.GetTaskWithCompletion());
+            System.out.println("\t" + count + ". " + task.getTaskWithCompletion());
             count++;
         }
     }

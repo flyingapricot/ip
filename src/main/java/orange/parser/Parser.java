@@ -1,6 +1,19 @@
 package orange.parser;
 
-import static orange.exception.ExceptionType.*;
+import static orange.exception.ExceptionType.EXTRA_BY_IN_DEADLINE;
+import static orange.exception.ExceptionType.EXTRA_FROM_IN_EVENT;
+import static orange.exception.ExceptionType.EXTRA_TO_IN_EVENT;
+import static orange.exception.ExceptionType.INVALID_FINDTASK;
+import static orange.exception.ExceptionType.INVALID_TASKNUMBER;
+import static orange.exception.ExceptionType.MISSING_DEADLINE_BYWORD;
+import static orange.exception.ExceptionType.MISSING_DEADLINE_DESCRIPTION;
+import static orange.exception.ExceptionType.MISSING_DEADLINE_DOBY;
+import static orange.exception.ExceptionType.MISSING_EVENT_DESCRIPTION;
+import static orange.exception.ExceptionType.MISSING_EVENT_DOBY;
+import static orange.exception.ExceptionType.MISSING_EVENT_FROMWORD;
+import static orange.exception.ExceptionType.MISSING_EVENT_STARTON;
+import static orange.exception.ExceptionType.MISSING_EVENT_TOWORD;
+import static orange.exception.ExceptionType.MISSING_TODO_DESCRIPTION;
 
 import orange.Ui.Ui;
 import orange.exception.ExceptionType;
@@ -20,6 +33,16 @@ import java.util.HashSet;
  * @see DateParser
  */
 public class Parser {
+    //In Java, instance variables, static variables, and constants (like private static final) should be declared in a certain order, generally:
+    //Instance variables (non-static fields).
+    //Static variables (static fields, like your commands field).
+    //Constants (typically declared static final).
+    //Constructors.
+    //Methods.
+
+    /** Stores the user input command line. */
+    protected static String line;
+
     /** A set of valid command keywords. */
     private static final HashSet<String> commands =
             new HashSet<>(
@@ -33,9 +56,6 @@ public class Parser {
                             "delete",
                             "checkondate",
                             "find"));
-
-    /** Stores the user input command line. */
-    protected static String line;
 
     /**
      * Constructs a Parser instance with the given user input.
@@ -72,8 +92,9 @@ public class Parser {
     public String scanForCommandWord() {
         String commandWord = getUserInput()[0];
         try {
-            if (!commands.contains(commandWord))
+            if (!commands.contains(commandWord)) {
                 throw new OrangeException(ExceptionType.UNKNOWN_COMMAND);
+            }
         } catch (OrangeException o) {
             Ui.showError(o.getCustomMessage());
             return "";
@@ -109,11 +130,15 @@ public class Parser {
      */
     public static ArrayList<String> parseDeadline() throws OrangeException {
         int position = line.indexOf("/by");
-        if (position == -1) throw new OrangeException(MISSING_DEADLINE_BYWORD);
+        if (position == -1) {
+            throw new OrangeException(MISSING_DEADLINE_BYWORD);
+        }
 
         int oldPosition = position;
         position = line.indexOf("/by", position + 1);
-        if (position != -1) throw new OrangeException(EXTRA_BY_IN_DEADLINE);
+        if (position != -1) {
+            throw new OrangeException(EXTRA_BY_IN_DEADLINE);
+        }
         position = oldPosition;
 
         String deadlineTask = "";
@@ -153,19 +178,27 @@ public class Parser {
     public static ArrayList<String> parseEvent() throws OrangeException {
 
         int fromPosition = line.indexOf("/from");
-        if (fromPosition == -1) throw new OrangeException(MISSING_EVENT_FROMWORD);
+        if (fromPosition == -1) {
+            throw new OrangeException(MISSING_EVENT_FROMWORD);
+        }
 
         int oldFromPosition = fromPosition;
         fromPosition = line.indexOf("/by", fromPosition + 1);
-        if (fromPosition != -1) throw new OrangeException(EXTRA_FROM_IN_EVENT);
+        if (fromPosition != -1) {
+            throw new OrangeException(EXTRA_FROM_IN_EVENT);
+        }
         fromPosition = oldFromPosition;
 
         int byPosition = line.indexOf("/to");
-        if (byPosition == -1) throw new OrangeException(MISSING_EVENT_TOWORD);
+        if (byPosition == -1) {
+            throw new OrangeException(MISSING_EVENT_TOWORD);
+        }
 
         int oldByPosition = byPosition;
         byPosition = line.indexOf("/by", byPosition + 1);
-        if (byPosition != -1) throw new OrangeException(EXTRA_TO_IN_EVENT);
+        if (byPosition != -1) {
+            throw new OrangeException(EXTRA_TO_IN_EVENT);
+        }
         byPosition = oldByPosition;
 
         String eventTask = "";

@@ -50,7 +50,7 @@ public class Todo extends Task {
      * @return A string representing the task with its completion status.
      */
     @Override
-    public String GetTaskWithCompletion() {
+    public String getTaskWithCompletion() {
         if (this.isDone) {
             return "[T][X] " + this.description;
         } else {

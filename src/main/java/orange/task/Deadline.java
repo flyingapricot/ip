@@ -69,7 +69,7 @@ public class Deadline extends Task {
      * @return The formatted task string.
      */
     @Override
-    public String GetTaskWithCompletion() {
+    public String getTaskWithCompletion() {
         if (this.isDone) {
             return "[D][X] " + this.description + " (by: " + newDateTimeString + ")";
         } else {

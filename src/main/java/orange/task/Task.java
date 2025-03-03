@@ -93,7 +93,7 @@ public class Task {
      *
      * @return A string representing the task with its completion status.
      */
-    public String GetTaskWithCompletion() {
+    public String getTaskWithCompletion() {
         if (this.isDone) {
             return "[X] " + this.description;
         } else {

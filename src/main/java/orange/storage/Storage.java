@@ -30,6 +30,24 @@ public class Storage {
     private static boolean saveFileValid = true;
 
     /**
+     * Constructs a Storage object and initializes the task file.
+     *
+     * @throws OrangeException If there is an error loading tasks.
+     */
+    public Storage() throws OrangeException {
+        try {
+            initaliseTaskfile();
+        } catch (IOException e) {
+            System.out.println(e);
+            saveFileValid = false;
+        }
+        if (saveFileValid) {
+            loadTasks();
+        }
+    }
+
+
+    /**
      * Initializes the task file by creating it if it does not exist.
      *
      * @throws IOException If an error occurs while creating the file.
@@ -61,29 +79,30 @@ public class Storage {
                 Path path = Paths.get(TASKFILE);
                 String finalTask = "";
                 switch (task.getClass().getName()) {
-                    case "orange.task.Todo":
-                        finalTask = "T," + task.getIsDone() + "," + task.getDescription() + ",-,-";
-                        break;
-                    case "orange.task.Deadline":
-                        finalTask =
-                                "D,"
-                                        + task.getIsDone()
-                                        + ","
-                                        + task.getDescription()
-                                        + ",-,"
-                                        + ((Deadline) task).getDateAndTime();
-                        break;
-                    case "orange.task.Events":
-                        finalTask =
-                                "E,"
-                                        + task.getIsDone()
-                                        + ","
-                                        + task.getDescription()
-                                        + ","
-                                        + ((Events) task).getStartDateAndTime()
-                                        + ","
-                                        + ((Events) task).getEndDateAndTime();
-                        break;
+                case "orange.task.Todo":
+                    finalTask = "T," + task.getIsDone() + "," + task.getDescription() + ",-,-";
+                    break;
+                case "orange.task.Deadline":
+                    finalTask =
+                            "D,"
+                                    + task.getIsDone()
+                                    + ","
+                                    + task.getDescription()
+                                    + ",-,"
+                                    + ((Deadline) task).getDateAndTime();
+                    break;
+                case "orange.task.Events":
+                    finalTask =
+                            "E,"
+                                    + task.getIsDone()
+                                    + ","
+                                    + task.getDescription()
+                                    + ","
+                                    + ((Events) task).getStartDateAndTime()
+                                    + ","
+                                    + ((Events) task).getEndDateAndTime();
+                    break;
+                default:
                 }
                 Files.write(path, List.of(finalTask), StandardOpenOption.APPEND);
             } catch (IOException e) {
@@ -134,20 +153,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Constructs a Storage object and initializes the task file.
-     *
-     * @throws OrangeException If there is an error loading tasks.
-     */
-    public Storage() throws OrangeException {
-        try {
-            initaliseTaskfile();
-        } catch (IOException e) {
-            System.out.println(e);
-            saveFileValid = false;
-        }
-        if (saveFileValid) loadTasks();
-    }
 
     /**
      * Returns whether the save file is valid.
