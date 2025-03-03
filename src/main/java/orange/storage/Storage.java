@@ -80,26 +80,26 @@ public class Storage {
                 switch (task.getClass().getName()) {
                     case "orange.task.Todo":
                         finalTask = "T," + task.getIsDone() + "," + task.getDescription() + ",-,-";
-                         break;
+                        break;
                     case "orange.task.Deadline":
                         finalTask =
-                        "D,"
-                        + task.getIsDone()
-                        + ","
-                        + task.getDescription()
-                        + ",-,"
-                        + ((Deadline) task).getDateAndTime();
+                                "D,"
+                                        + task.getIsDone()
+                                        + ","
+                                        + task.getDescription()
+                                        + ",-,"
+                                        + ((Deadline) task).getDateAndTime();
                         break;
                     case "orange.task.Events":
                         finalTask =
-                        "E,"
-                        + task.getIsDone()
-                        + ","
-                        + task.getDescription()
-                        + ","
-                        + ((Events) task).getStartDateAndTime()
-                        + ","
-                        + ((Events) task).getEndDateAndTime();
+                                "E,"
+                                        + task.getIsDone()
+                                        + ","
+                                        + task.getDescription()
+                                        + ","
+                                        + ((Events) task).getStartDateAndTime()
+                                        + ","
+                                        + ((Events) task).getEndDateAndTime();
                         break;
                     default:
                 }
@@ -123,27 +123,27 @@ public class Storage {
             for (String line : lines) {
                 String[] values = line.split(",");
                 switch (values[0]) {
-                case "T":
-					TaskList.getInstance()
-					.addTask(new Todo(values[2], Boolean.parseBoolean(values[1])));
-					break;
-                case "D":
-					TaskList.getInstance()
-					.addTask(
-					new Deadline(
-					values[2],
-					Boolean.parseBoolean(values[1]),
-					values[4]));
-					break;
-                case "E":
-					TaskList.getInstance()
-					.addTask(
-					new Events(
-					values[2],
-					Boolean.parseBoolean(values[1]),
-					values[4],
-					values[3]));
-					break;
+                    case "T":
+                        TaskList.getInstance()
+                                .addTask(new Todo(values[2], Boolean.parseBoolean(values[1])));
+                        break;
+                    case "D":
+                        TaskList.getInstance()
+                                .addTask(
+                                        new Deadline(
+                                                values[2],
+                                                Boolean.parseBoolean(values[1]),
+                                                values[4]));
+                        break;
+                    case "E":
+                        TaskList.getInstance()
+                                .addTask(
+                                        new Events(
+                                                values[2],
+                                                Boolean.parseBoolean(values[1]),
+                                                values[4],
+                                                values[3]));
+                        break;
                 }
             }
         } catch (IOException e) {
