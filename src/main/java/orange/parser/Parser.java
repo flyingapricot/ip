@@ -124,7 +124,7 @@ public class Parser {
             if (deadlineTask.isEmpty()) {
                 throw new OrangeException(
                         MISSING_DEADLINE_DESCRIPTION); // Throw exception if the task is empty after
-                                                       // trimming
+                // trimming
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
@@ -135,7 +135,7 @@ public class Parser {
             if (doTaskBy.isEmpty()) {
                 throw new OrangeException(
                         MISSING_DEADLINE_DOBY); // Throw exception if the task is empty after
-                                                // trimming
+                // trimming
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DOBY);
@@ -177,7 +177,7 @@ public class Parser {
             if (eventTask.isEmpty()) {
                 throw new OrangeException(
                         MISSING_EVENT_DESCRIPTION); // Throw exception if the task is empty after
-                                                    // trimming
+                // trimming
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_EVENT_DESCRIPTION);
@@ -188,7 +188,7 @@ public class Parser {
             if (startEventBy.isEmpty()) {
                 throw new OrangeException(
                         MISSING_EVENT_STARTON); // Throw exception if the task is empty after
-                                                // trimming
+                // trimming
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_EVENT_STARTON);
@@ -319,7 +319,7 @@ public class Parser {
             if (givenDate.isEmpty()) {
                 throw new OrangeException(
                         MISSING_DEADLINE_DESCRIPTION); // Throw exception if the task is empty after
-                                                       // trimming
+                // trimming
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
