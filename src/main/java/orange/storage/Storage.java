@@ -1,7 +1,12 @@
 package orange.storage;
 
 import orange.exception.OrangeException;
-import orange.task.*;
+import orange.task.Deadline;
+import orange.task.Events;
+import orange.task.Task;
+import orange.task.TaskList;
+import orange.task.Todo;
+
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -144,6 +149,7 @@ public class Storage {
                                             values[4],
                                             values[3]));
                     break;
+                    default:
                 }
             }
         } catch (IOException e) {
