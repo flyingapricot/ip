@@ -149,8 +149,7 @@ public class Parser {
             deadlineTask = line.substring(8, position).trim();
             if (deadlineTask.isEmpty()) {
                 throw new OrangeException(
-                        MISSING_DEADLINE_DESCRIPTION); // Throw exception if the task is empty after
-                // trimming
+                        MISSING_DEADLINE_DESCRIPTION); // Throw exception if the task is empty
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
@@ -160,8 +159,7 @@ public class Parser {
             doTaskBy = line.substring(position + 4).trim();
             if (doTaskBy.isEmpty()) {
                 throw new OrangeException(
-                        MISSING_DEADLINE_DOBY); // Throw exception if the task is empty after
-                // trimming
+                        MISSING_DEADLINE_DOBY); // Throw exception if the task is empty
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DOBY);
@@ -210,8 +208,7 @@ public class Parser {
             eventTask = line.substring(5, fromPosition).trim();
             if (eventTask.isEmpty()) {
                 throw new OrangeException(
-                        MISSING_EVENT_DESCRIPTION); // Throw exception if the task is empty after
-                // trimming
+                        MISSING_EVENT_DESCRIPTION); // Throw exception if the task is empty
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_EVENT_DESCRIPTION);
@@ -221,8 +218,7 @@ public class Parser {
             startEventBy = line.substring(fromPosition + 5, byPosition).trim();
             if (startEventBy.isEmpty()) {
                 throw new OrangeException(
-                        MISSING_EVENT_STARTON); // Throw exception if the task is empty after
-                // trimming
+                        MISSING_EVENT_STARTON); // Throw exception if the task is empty
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_EVENT_STARTON);
@@ -353,7 +349,6 @@ public class Parser {
             if (givenDate.isEmpty()) {
                 throw new OrangeException(
                         MISSING_DEADLINE_DESCRIPTION); // Throw exception if the task is empty after
-                // trimming
             }
         } catch (IndexOutOfBoundsException i) {
             throw new OrangeException(MISSING_DEADLINE_DESCRIPTION);
