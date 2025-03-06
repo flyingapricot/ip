@@ -30,7 +30,8 @@ find . -type f -name "*.java" | while read -r file; do
     # Indent statements inside case one level deeper
     inside_switch && !/^\s*case / && !/^\s*default:/ && !/^\s*}/ {
 	sub(/^(\s+)/, "", $0); # Remove leading spaces
-        print "					" $0;
+        print indent $0;
+        #print "                     " $0;
         next;
     }
 
