@@ -7,7 +7,6 @@ import orange.task.Task;
 import orange.task.TaskList;
 import orange.task.Todo;
 
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -149,7 +148,7 @@ public class Storage {
                                             values[4],
                                             values[3]));
                     break;
-                    default:
+                default:
                 }
             }
         } catch (IOException e) {
