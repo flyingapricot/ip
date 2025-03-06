@@ -27,15 +27,6 @@ public class TaskManager {
     private Integer taskNumber;
 
     /**
-     * Updates the current task number being processed.
-     *
-     * @param number The new task number.
-     */
-    public void updateTaskNumber(int number) {
-        this.taskNumber = number;
-    }
-
-    /**
      * Constructs a TaskManager instance and initializes the command map.
      *
      * <p>The command map associates command strings with their respective command handlers using
@@ -55,6 +46,15 @@ public class TaskManager {
         commandMap.put("delete", new DeleteCommand()::executeCommand);
         commandMap.put("find", new FindCommand()::executeCommand);
         commandMap.put("checkondate", new CheckOnDateCommand()::executeCommand);
+    }
+
+    /**
+     * Updates the current task number being processed.
+     *
+     * @param number The new task number.
+     */
+    public void updateTaskNumber(int number) {
+        this.taskNumber = number;
     }
 
     /**
