@@ -30,10 +30,10 @@ jobs:
         run: |
           java --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED -jar /tmp/google-java-format.jar -a --replace $(find . -name "*.java")
 
-      - name: Fix switch-case indentation
-        run: |
-          chmod +x .github/workflows/fix-switch-case.sh
-          .github/workflows/fix-switch-case.sh
+      # - name: Fix switch-case indentation
+      #   run: |
+      #     chmod +x .github/workflows/fix-switch-case.sh
+      #     .github/workflows/fix-switch-case.sh
 
       - name: Commit formatted code
         run: |
