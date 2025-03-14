@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"orange"},{"l":"orange.command"},{"l":"orange.exception"},{"l":"orange.parser"},{"l":"orange.storage"},{"l":"orange.task"},{"l":"orange.Ui"}];updateSearchResults();

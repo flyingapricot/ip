@@ -1,6 +1,17 @@
+package orange.command;
+
+import orange.Ui.Ui;
+import orange.exception.OrangeException;
+import orange.parser.Parser;
+import orange.storage.Storage;
+import orange.task.Deadline;
+import orange.task.TaskList;
+
+import java.util.ArrayList;
+
 /**
- * Handles the execution of the deadline command.
- * This command creates a new deadline task and adds it to the task list.
+ * Handles the execution of the deadline command. This command creates a new deadline task and adds
+ * it to the task list.
  *
  * @see Command
  * @see Deadline
@@ -9,27 +20,13 @@
  * @see Storage
  * @see Ui
  */
-package orange.command;
-
-import orange.Ui.Ui;
-import orange.exception.OrangeException;
-import orange.parser.DateParser;
-import orange.parser.Parser;
-import orange.storage.Storage;
-import orange.task.Deadline;
-import orange.task.TaskList;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 public class DeadlineCommand extends Command {
     /**
      * Executes the deadline command.
-     * <p>
-     * Parses the user input to extract the deadline task description and due date,
-     * creates a new Deadline task, adds it to the task list, updates the UI,
-     * and saves the task to the storage file.
-     * </p>
+     *
+     * <p>Parses the user input to extract the deadline task description and due date, creates a new
+     * Deadline task, adds it to the task list, updates the UI, and saves the task to the storage
+     * file.
      *
      * @throws OrangeException If there is an error in parsing the deadline command.
      */
