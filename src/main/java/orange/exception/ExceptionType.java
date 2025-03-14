@@ -25,10 +25,7 @@ public enum ExceptionType {
     /** Represents an invalid task number exception. */
     INVALID_TASKNUMBER(
             3,
-            "You have provided an invalid task number. Try again using a number from the range 0 - "
-                    + (TaskList.getInstance().getSize())
-                    + " Usage: mark/unmark/delete [taskNumber] (Add a space between the keyword and"
-                    + " taskNumber)"),
+            "You have provided an invalid task number. Try again using a valid task number"),
 
     /** Represents a missing todo description exception. */
     MISSING_TODO_DESCRIPTION(
@@ -124,7 +121,12 @@ public enum ExceptionType {
                     + " yyyy-mm-dd HH:mm"),
 
     /** Represents an invalid date exception. */
-    INVALID_DATE(19, "You have entered an invalid date. Try in this format: yyyy-mm-dd");
+    INVALID_DATE(19, "You have entered an invalid date. Try in this format: yyyy-mm-dd"),
+
+    /** Represents a missing checkondate date exception. */
+    MISSING_CHECKON_DATE(
+            20,
+            "You have not provided a date to check on, try again.");
 
     /** The error code associated with the exception type. */
     private final int code;
