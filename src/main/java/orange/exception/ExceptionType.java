@@ -1,6 +1,5 @@
 package orange.exception;
 
-
 /**
  * Defines different types of exceptions that can occur in the Orange chatbot. Each exception type
  * includes an error code and a descriptive error message.

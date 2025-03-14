@@ -1,14 +1,5 @@
 package orange.parser;
 
-import orange.Ui.Ui;
-import orange.exception.ExceptionType;
-import orange.exception.OrangeException;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-
 import static orange.exception.ExceptionType.EXTRA_BY_IN_DEADLINE;
 import static orange.exception.ExceptionType.EXTRA_FROM_IN_EVENT;
 import static orange.exception.ExceptionType.EXTRA_TO_IN_EVENT;
@@ -24,6 +15,15 @@ import static orange.exception.ExceptionType.MISSING_EVENT_FROMWORD;
 import static orange.exception.ExceptionType.MISSING_EVENT_STARTON;
 import static orange.exception.ExceptionType.MISSING_EVENT_TOWORD;
 import static orange.exception.ExceptionType.MISSING_TODO_DESCRIPTION;
+
+import orange.Ui.Ui;
+import orange.exception.ExceptionType;
+import orange.exception.OrangeException;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Parses user input and extracts command information for processing. This class handles parsing
