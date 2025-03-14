@@ -9,7 +9,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static orange.exception.ExceptionType.*;
+import static orange.exception.ExceptionType.EXTRA_BY_IN_DEADLINE;
+import static orange.exception.ExceptionType.EXTRA_FROM_IN_EVENT;
+import static orange.exception.ExceptionType.EXTRA_TO_IN_EVENT;
+import static orange.exception.ExceptionType.INVALID_FINDTASK;
+import static orange.exception.ExceptionType.INVALID_TASKNUMBER;
+import static orange.exception.ExceptionType.MISSING_CHECKON_DATE;
+import static orange.exception.ExceptionType.MISSING_DEADLINE_BYWORD;
+import static orange.exception.ExceptionType.MISSING_DEADLINE_DESCRIPTION;
+import static orange.exception.ExceptionType.MISSING_DEADLINE_DOBY;
+import static orange.exception.ExceptionType.MISSING_EVENT_DESCRIPTION;
+import static orange.exception.ExceptionType.MISSING_EVENT_DOBY;
+import static orange.exception.ExceptionType.MISSING_EVENT_FROMWORD;
+import static orange.exception.ExceptionType.MISSING_EVENT_STARTON;
+import static orange.exception.ExceptionType.MISSING_EVENT_TOWORD;
+import static orange.exception.ExceptionType.MISSING_TODO_DESCRIPTION;
 
 /**
  * Parses user input and extracts command information for processing. This class handles parsing
