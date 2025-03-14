@@ -1,5 +1,7 @@
 package orange.parser;
 
+import static orange.exception.ExceptionType.*;
+
 import orange.Ui.Ui;
 import orange.exception.ExceptionType;
 import orange.exception.OrangeException;
@@ -8,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-
-import static orange.exception.ExceptionType.*;
 
 /**
  * Parses user input and extracts command information for processing. This class handles parsing
