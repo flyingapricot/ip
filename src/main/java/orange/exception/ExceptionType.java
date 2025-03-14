@@ -1,6 +1,5 @@
 package orange.exception;
 
-import orange.task.TaskList;
 
 /**
  * Defines different types of exceptions that can occur in the Orange chatbot. Each exception type
@@ -24,8 +23,7 @@ public enum ExceptionType {
 
     /** Represents an invalid task number exception. */
     INVALID_TASKNUMBER(
-            3,
-            "You have provided an invalid task number. Try again using a valid task number"),
+            3, "You have provided an invalid task number. Try again using a valid task number"),
 
     /** Represents a missing todo description exception. */
     MISSING_TODO_DESCRIPTION(
@@ -124,9 +122,7 @@ public enum ExceptionType {
     INVALID_DATE(19, "You have entered an invalid date. Try in this format: yyyy-mm-dd"),
 
     /** Represents a missing checkondate date exception. */
-    MISSING_CHECKON_DATE(
-            20,
-            "You have not provided a date to check on, try again.");
+    MISSING_CHECKON_DATE(20, "You have not provided a date to check on, try again.");
 
     /** The error code associated with the exception type. */
     private final int code;
