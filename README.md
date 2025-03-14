@@ -1,18 +1,36 @@
-# Orange project template
+# Orange Chatbot
 
-This is a project template for a greenfield Java project. It's named after Orange. Given below are instructions on how to use it.
+Orange is a command-line-based chatbot that helps users manage their tasks efficiently. It allows users to add, mark, unmark, delete, search, and view tasks. The tasks are automatically saved and loaded from a file, ensuring persistence across sessions.
 
-## Setting up in Intellij
+## Features
+- **Task Management**: Add To-Do, Deadline, and Event tasks.
+- **Task Status**: Mark tasks as completed or uncompleted.
+- **Task Search**: Search for tasks by keyword or check tasks on specific dates.
+- **Persistent Storage**: Tasks are saved in a file and automatically loaded on startup.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Commands
+- **list**: View all tasks.
+- **todo**: Add a To-Do task.
+- **deadline**: Add a task with a deadline.
+- **event**: Add an event task with a specified start and end time.
+- **mark**: Mark a task as completed.
+- **unmark**: Mark a task as incomplete.
+- **delete**: Delete a task.
+- **find**: Search for tasks by keyword.
+- **checkondate**: View tasks on a specific date.
+- **bye**: Exit the chatbot session.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Orange.java` file, right-click it, and choose `Run Orange.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Saving and Loading
+- Tasks are automatically saved to a file (saved.csv) after any modification and loaded when the chatbot starts.
+
+## Error Handling
+- Invalid commands will prompt appropriate error messages with guidance on how to use the correct commands.
+
+
+## Quick Start
+1. Ensure you have **Java 17** or later installed.
+2. Download the `Orange.jar` file.
+3. Open a terminal in the directory containing `Orange.jar`.
+4. Run the chatbot using:
+   ```bash
+   java -jar Orange.jar
